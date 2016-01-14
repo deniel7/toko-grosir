@@ -15,7 +15,7 @@
 
 		public function login_exe() {
 			$txt_username = $this->input->post('txt_username');
-			$txt_pass = $this->input->post('txt_pass');
+			$txt_pass = md5($this->input->post('txt_pass'));
 
 			$sql = "SELECT * FROM mst_user WHERE username='$txt_username' AND password='$txt_pass' ";
 			$q = $this->db->query($sql);
