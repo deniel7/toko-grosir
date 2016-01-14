@@ -14,7 +14,7 @@
 		
 		function login_exe(){
 			$this->load->model('User_model');
-			$res = $this->Employee_model->login();
+			$res = $this->User_model->login_exe();
 			
 			if ($res)
 				redirect('home');
