@@ -10,6 +10,7 @@
 		}
 		
 		function index() {
+			$data['head_template'] = 'template/head_template_view';
 			$data['head'] = 'home/head_view';
 			$data['top_menu'] = 'template/top_menu_view';
 			$data['left_menu'] = 'template/left_menu_view';

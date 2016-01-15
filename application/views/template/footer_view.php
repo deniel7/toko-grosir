@@ -1,27 +1,19 @@
-
-			<div id="bpmfooter1">
-				
-			</div>
-			
-			<div id="bpmfooter2">
-				<div class="left">
-					&copy; Copyright 2015
-				</div>	
-				
-				<div class="right">
-					Monitoring &amp; Evaluasi Karyawan
+<div class="footer">
+				<div class="footer-inner">
+					<div class="footer-content">
+						<span class="">
+							Online <span class="blue bolder">Inventory Control</span> Application &copy; 2015
+						</span>
+					</div>
 				</div>
-				
-				<div class="clear2"></div>
-				
-				<div style="text-align:center; font-size:0.95em;">PT. AKUR PRATAMA TOSERBA YOGYA</div>
-				
 			</div>
-			<!-- END footer -->
-			
-		</div>
-		<!-- END container -->
-		
-	</div>
 
-</body></html>
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+
+		
+	</body>
+</html>
