@@ -68,3 +68,27 @@ $route['customer/list/(:any)'] = 'Customer_Controller/get_list/$1';
 $route['customer/add/(:any)'] = 'Customer_Controller/add/$1';
 $route['customer/edit/(:any)/(:any)'] = 'Customer_Controller/edit/$1/$2';
 $route['customer/delete/(:any)'] = 'Customer_Controller/delete/$1';
+
+$route['item'] = 'Item_Controller';
+$route['item/(:any)'] = 'Item_Controller/$1';
+$route['item/list'] = 'Item_Controller/get_list';
+$route['item/list/(:any)'] = 'Item_Controller/get_list/$1';
+$route['item/add/(:any)'] = 'Item_Controller/add/$1';
+$route['item/edit/(:any)/(:any)'] = 'Item_Controller/edit/$1/$2';
+$route['item/delete/(:any)'] = 'Item_Controller/delete/$1';
+
+$route['supplier'] = 'Supplier_Controller';
+$route['supplier/(:any)'] = 'Supplier_Controller/$1';
+$route['supplier/list'] = 'Supplier_Controller/get_list';
+$route['supplier/list/(:any)'] = 'Supplier_Controller/get_list/$1';
+$route['supplier/add/(:any)'] = 'Supplier_Controller/add/$1';
+$route['supplier/edit/(:any)/(:any)'] = 'Supplier_Controller/edit/$1/$2';
+$route['supplier/delete/(:any)'] = 'Supplier_Controller/delete/$1';
+
+$route['customer'] = 'Customer_Controller';
+$route['customer/(:any)'] = 'Customer_Controller/$1';
+$route['customer/list'] = 'Customer_Controller/get_list';
+$route['customer/list/(:any)'] = 'Customer_Controller/get_list/$1';
+$route['customer/add/(:any)'] = 'Customer_Controller/add/$1';
+$route['customer/edit/(:any)/(:any)'] = 'Customer_Controller/edit/$1/$2';
+$route['customer/delete/(:any)'] = 'Customer_Controller/delete/$1';
