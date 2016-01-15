@@ -2,24 +2,24 @@
 	
 	date_default_timezone_set('Asia/Jakarta');	
 
-	class Customer_Controller extends MY_Controller {
+	class Supplier_Controller extends MY_Controller {
 		
 		function __construct(){
 			parent::__construct();
 			$this->is_logged_in();
-			$this->load->model('Customer_model');
+			$this->load->model('Supplier_model');
 		}
 		
 		function get_list($msg) {
 			$data['msg'] = $this->my_message($msg);
 			$data['head_template'] = 'template/head_template_view';
-			$data['head'] = 'customer/head_view';
+			$data['head'] = 'supplier/head_view';
 			$data['top_menu'] = 'template/top_menu_view';
 			$data['left_menu'] = 'template/left_menu_view';
-			$data['content'] = 'customer/list_view';
+			$data['content'] = 'supplier/list_view';
 			$data['footer'] = 'template/footer_view';
 			
-			$res = $this->Customer_model->get_list();
+			$res = $this->Supplier_model->get_list();
 			$data['row'] = "";
 
 			foreach ($res as $r) {
@@ -29,11 +29,11 @@
 									<td>".$r->phone."</td>
 									<td>
 										<div class='hidden-sm hidden-xs action-buttons'>
-											<a class='green' href='".base_url()."customer/edit/".$r->id."/0'>
+											<a class='green' href='".base_url()."supplier/edit/".$r->id."/0'>
 												<i class='ace-icon fa fa-pencil bigger-130'></i>
 											</a>
 
-											<a class='red' href='".base_url()."customer/delete/".$r->id."' id='btn_delete' onclick='return delete_confirm();'>
+											<a class='red' href='".base_url()."supplier/delete/".$r->id."' id='btn_delete' onclick='return delete_confirm();'>
 												<i class='ace-icon fa fa-trash-o bigger-130'></i>
 											</a>
 										</div>
@@ -41,27 +41,27 @@
 								</tr>";
 			}
 
-			$this->load->view('customer/index', $data);
+			$this->load->view('supplier/index', $data);
 		}
 			
 		function add($msg) {
 			$data['msg'] = $this->my_message($msg);
 			$data['head_template'] = 'template/head_template_view';
-			$data['head'] = 'customer/head_view';
+			$data['head'] = 'supplier/head_view';
 			$data['top_menu'] = 'template/top_menu_view';
 			$data['left_menu'] = 'template/left_menu_view';
-			$data['content'] = 'customer/add_view';
+			$data['content'] = 'supplier/add_view';
 			$data['footer'] = 'template/footer_view';
 
-			$this->load->view('customer/index', $data);
+			$this->load->view('supplier/index', $data);
 		}	
 		
 		public function add_exe(){
-			$r = $this->Customer_model->add_exe();
+			$r = $this->Supplier_model->add_exe();
 			if ($r=='1')
-				$page = base_url() . 'customer/add/1';
+				$page = base_url() . 'supplier/add/1';
 			else 
-				$page = base_url() . 'customer/add/4';
+				$page = base_url() . 'supplier/add/4';
 
 			redirect($page);
 		}

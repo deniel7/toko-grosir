@@ -153,7 +153,7 @@
 							</li>
 
 							<li class="">
-								<a href="form-wizard.html">
+								<a href="<?php echo base_url(); ?>supplier/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Supplier
 								</a>
 								<b class="arrow"></b>
