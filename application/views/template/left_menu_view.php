@@ -138,6 +138,13 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
+							
+							<li class="">
+								<a href="<?php echo base_url(); ?>user/list/0">
+									<i class="menu-icon fa fa-caret-right"></i>User
+								</a>
+								<b class="arrow"></b>
+							</li>
 							<li class="">
 								<a href="<?php echo base_url(); ?>customer/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Customer
@@ -153,7 +160,7 @@
 							</li>
 
 							<li class="">
-								<a href="form-wizard.html">
+								<a href="<?php echo base_url(); ?>supplier/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Supplier
 								</a>
 								<b class="arrow"></b>
