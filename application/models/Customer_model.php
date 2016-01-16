@@ -27,7 +27,6 @@
             $txt_phone = $this->input->post('txt_phone');
 
 			$data = array(
-					   'id' => '',
 					   'name' => $txt_name,
 					   'address' => $txt_address,
 					   'phone' => $txt_phone
