@@ -92,3 +92,11 @@ $route['customer/list/(:any)'] = 'Customer_Controller/get_list/$1';
 $route['customer/add/(:any)'] = 'Customer_Controller/add/$1';
 $route['customer/edit/(:any)/(:any)'] = 'Customer_Controller/edit/$1/$2';
 $route['customer/delete/(:any)'] = 'Customer_Controller/delete/$1';
+
+$route['user'] = 'User_Controller';
+$route['user/(:any)'] = 'User_Controller/$1';
+$route['user/list'] = 'User_Controller/get_list';
+$route['user/list/(:any)'] = 'User_Controller/get_list/$1';
+$route['user/add/(:any)'] = 'User_Controller/add/$1';
+$route['user/edit/(:any)/(:any)'] = 'User_Controller/edit/$1/$2';
+$route['user/delete/(:any)'] = 'User_Controller/delete/$1';

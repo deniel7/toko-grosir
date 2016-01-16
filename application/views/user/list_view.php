@@ -12,7 +12,7 @@
 								<i class="ace-icon fa fa-pencil-square-o pencil-square-o-icon"></i>
 								Master
 							</li>
-							<li class="active">Customer</li>
+							<li class="active">User</li>
 						</ul >
 					</div>
 		
@@ -22,7 +22,7 @@
 
 								<div class="row">
 									<div class="col-xs-12">
-										<a href="<?php echo base_url();?>customer/add/0" class="btn btn-success btn-sm">
+										<a href="<?php echo base_url();?>user/add/0" class="btn btn-success btn-sm">
 											<i class="ace-icon fa fa-plus-square-o"></i>
 											Add New
 										</a>
@@ -35,9 +35,10 @@
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
-														<th>Name</th>
-														<th>Address</th>
-														<th>Phone</th>
+														
+														<th>Username</th>
+														<th>Password</th>
+														<th>Role</th>
 														<th></th>
 													</tr>
 												</thead>

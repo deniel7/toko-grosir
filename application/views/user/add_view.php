@@ -12,7 +12,7 @@
 								<i class="ace-icon fa fa-pencil-square-o pencil-square-o-icon"></i>
 								Master
 							</li>
-							<li><a href="<?php echo base_url();?>customer/list/0" >Customer</a></li>
+							<li><a href="<?php echo base_url();?>user/list/0" >User</a></li>
 							<li class="active">Add New</li>
 						</ul >
 					</div>
@@ -24,22 +24,28 @@
 							<br>
 								<div class="row">
 									<div class="col-xs-12">
-										<form action="<?php echo base_url(); ?>customer/add_exe" method="post" name="frm_add_cust" id="frm_add_cust" class="form-horizontal" role="form">
+										<form action="<?php echo base_url(); ?>user/add_exe" method="post" name="frm_add_cust" id="frm_add_cust" class="form-horizontal" role="form">
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Name</label>
+												<label class="col-sm-1 control-label no-padding-left" >Username</label>
 												<div class="col-sm-7">
-													<input type="text" id="txt_name" name="txt_name" class="col-xs-12" required />
+													<input type="text" id="txt_username" name="txt_username" class="col-xs-12" required />
 												</div>
-												<label class="col-sm-1 control-label no-padding-left" >Phone</label>
+												<label class="col-sm-1 control-label no-padding-left" >Roles</label>
 												<div class="col-sm-3">
-													<input type="text" id="txt_phone" name="txt_phone" class="col-xs-12" />
+													 <select id="txt_role" name="txt_role">
+													  <option value="1">Admin</option>
+													  <option value="2">Manager</option>
+													  <option value="3">Staff</option>
+													  
+													 </select> 
+													<!-- <input type="text" id="txt_role" name="txt_role" class="col-xs-12" /> -->
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Address</label>
+												<label class="col-sm-1 control-label no-padding-left" >Password</label>
 												<div class="col-sm-11">
-													<input type="text" id="txt_address" name="txt_address" class="col-xs-12" />
+													<input type="password" id="txt_password" name="txt_password" class="col-xs-12" />
 												</div>
 											</div>
 
