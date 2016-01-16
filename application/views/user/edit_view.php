@@ -12,7 +12,7 @@
 								<i class="ace-icon fa fa-pencil-square-o pencil-square-o-icon"></i>
 								Master
 							</li>
-							<li><a href="<?php echo base_url();?>supplier/list/0" >Supplier</a></li>
+							<li><a href="<?php echo base_url();?>customer/list/0" >Customer</a></li>
 							<li class="active">Edit</li>
 						</ul >
 					</div>
@@ -24,7 +24,7 @@
 							<br>
 								<div class="row">
 									<div class="col-xs-12">
-										<form action="<?php echo base_url(); ?>supplier/edit_exe" method="post" name="frm_edit_cust" id="frm_edit_cust" class="form-horizontal" role="form">
+										<form action="<?php echo base_url(); ?>customer/edit_exe" method="post" name="frm_edit_cust" id="frm_edit_cust" class="form-horizontal" role="form">
 											<div class="form-group">
 												<label class="col-sm-1 control-label no-padding-left" >Name</label>
 												<div class="col-sm-7">

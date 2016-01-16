@@ -47,7 +47,7 @@
 		
 
 		function edit($id){
-			$sql = "SELECT * FROM mst_customer WHERE id='$id' ";
+			$sql = "SELECT * FROM mst_supplier WHERE id='$id' ";
 			
 			$exe = $this->db->query($sql);
 			$ret = $exe->row();
@@ -57,13 +57,13 @@
 			return $arr;
 		}	
 
-		public function edit_customer(){
+		public function edit_supplier(){
 			$txt_id = $this->input->post('txt_id');
 			$txt_name = $this->input->post('txt_name');
             $txt_address = $this->input->post('txt_address');
             $txt_phone = $this->input->post('txt_phone');
 
-			$sql = "UPDATE mst_customer 
+			$sql = "UPDATE mst_supplier 
 					SET name='$txt_name', address='$txt_address', phone='$txt_phone'
 					WHERE id='$txt_id'
 					";
@@ -74,14 +74,14 @@
 		}
 
 		public function edit_exe(){
-			if ($this->edit_customer())
+			if ($this->edit_supplier())
 				return '1';
 			else 
 				return '0';
 		}
 
 		public function delete($id){
-			$sql = "DELETE FROM mst_customer WHERE id='$id' ";
+			$sql = "DELETE FROM mst_supplier WHERE id='$id' ";
 			
 			$r = $this->db->query($sql);
 
