@@ -18,7 +18,7 @@
 				<div class="navbar-header pull-left">
 					<a href="index.html" class="navbar-brand">
 						<small>
-							
+							JAYA MAKMUR
 							
 						</small>
 					</a>

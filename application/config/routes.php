@@ -100,3 +100,11 @@ $route['user/list/(:any)'] = 'User_Controller/get_list/$1';
 $route['user/add/(:any)'] = 'User_Controller/add/$1';
 $route['user/edit/(:any)/(:any)'] = 'User_Controller/edit/$1/$2';
 $route['user/delete/(:any)'] = 'User_Controller/delete/$1';
+
+$route['item'] = 'Item_Controller';
+$route['item/(:any)'] = 'Item_Controller/$1';
+$route['item/list'] = 'Item_Controller/get_list';
+$route['item/list/(:any)'] = 'Item_Controller/get_list/$1';
+$route['item/add/(:any)'] = 'Item_Controller/add/$1';
+$route['item/edit/(:any)/(:any)'] = 'Item_Controller/edit/$1/$2';
+$route['item/delete/(:any)'] = 'Item_Controller/delete/$1';

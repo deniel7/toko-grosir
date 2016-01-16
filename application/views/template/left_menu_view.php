@@ -138,13 +138,6 @@
 						<b class="arrow"></b>
 
 						<ul class="submenu">
-							
-							<li class="">
-								<a href="<?php echo base_url(); ?>user/list/0">
-									<i class="menu-icon fa fa-caret-right"></i>User
-								</a>
-								<b class="arrow"></b>
-							</li>
 							<li class="">
 								<a href="<?php echo base_url(); ?>customer/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Customer
@@ -153,7 +146,7 @@
 							</li>
 
 							<li class="">
-								<a href="form-elements-2.html">
+								<a href="<?php echo base_url(); ?>item/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Item
 								</a>
 								<b class="arrow"></b>
@@ -166,6 +159,12 @@
 								<b class="arrow"></b>
 							</li>
 
+							<li class="">
+								<a href="<?php echo base_url(); ?>user/list/0">
+									<i class="menu-icon fa fa-caret-right"></i>User
+								</a>
+								<b class="arrow"></b>
+							</li>
 							
 						</ul>
 					</li>

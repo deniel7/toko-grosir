@@ -23,10 +23,12 @@
 			$data['row'] = "";
 
 			foreach ($res as $r) {
+				$role_name = $this->get_role_name($r->role);
+
 				$data['row'] .= "<tr>
 									<td>".$r->username."</td>
 									<td>".$r->password."</td>
-									<td>".$r->role."</td>
+									<td>".$role_name."</td>
 									<td>
 										<div class='hidden-sm hidden-xs action-buttons'>
 											<a class='green' href='".base_url()."user/edit/".$r->id."/0'>
@@ -43,7 +45,19 @@
 
 			$this->load->view('user/index', $data);
 		}
-			
+		
+		function get_role_name($role){
+			switch ($role) {
+				case '1' : $name = 'Administrator'; break;
+				case '2' : $name = 'Cashier'; break;
+				case '3' : $name = 'Manager'; break;
+				
+				default: $name = 'undefined'; break;
+			}
+			return $name;
+
+		}
+
 		function add($msg) {
 			$data['msg'] = $this->my_message($msg);
 			$data['head_template'] = 'template/head_template_view';

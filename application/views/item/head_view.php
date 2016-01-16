@@ -1,4 +1,5 @@
 	<!-- place any js here -->
+	<script src="<?php echo base_url(); ?>assets/js/autoNumeric.js"></script>
 	<script type="text/javascript">
 		jQuery(function($) {
 				//initiate dataTables plugin
@@ -8,7 +9,7 @@
 				.dataTable( {
 					bAutoWidth: false,
 					"aoColumns": [
-					  null, null, null,  { "bSortable": false }
+					  null, null, null, null, null, null, null, null, { "bSortable": false }
 					],
 					"aaSorting": [],
 					
@@ -75,11 +76,12 @@
 					return 'left';
 				}
 
-				
+				//auto numeric
+				$('.txt_numeric').autoNumeric('init', {vMin: '0', vMax: '99999999999'});
 				
 			})
 
-	</script>						
+	</script>	
 
 
 	

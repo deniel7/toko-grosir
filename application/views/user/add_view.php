@@ -30,15 +30,14 @@
 												<div class="col-sm-7">
 													<input type="text" id="txt_username" name="txt_username" class="col-xs-12" required />
 												</div>
-												<label class="col-sm-1 control-label no-padding-left" >Roles</label>
+												<label class="col-sm-1 control-label no-padding-left" >Role</label>
 												<div class="col-sm-3">
-													 <select id="txt_role" name="txt_role">
-													  <option value="1">Admin</option>
-													  <option value="2">Manager</option>
-													  <option value="3">Staff</option>
-													  
+													 <select id="txt_role" name="txt_role" class="col-xs-12">
+														  <option value="1">Administrator</option>
+														  <option value="2">Cashier</option>
+														  <option value="3">Manager</option>
 													 </select> 
-													<!-- <input type="text" id="txt_role" name="txt_role" class="col-xs-12" /> -->
+													<!-- <input type="text" id="txt_role" name="txt_role"  /> -->
 												</div>
 											</div>
 
