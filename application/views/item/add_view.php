@@ -26,69 +26,51 @@
 									<div class="col-xs-12">
 										<form action="<?php echo base_url(); ?>item/add_exe" method="post" name="frm_add_item" id="frm_add_item" class="form-horizontal" role="form">
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Code</label>
+												<label class="col-sm-2 control-label no-padding-left" >Code</label>
 												<div class="col-sm-2">
 													<input type="text" id="txt_code" name="txt_code" class="col-xs-12" required />
 												</div>
 
 												
 												<div class="col-sm-2">
-													<label>
-														<input name="rb_unit" type="radio" class="ace" checked value='1' />
-														<span class="lbl"> CRT</span>
-													</label>
-													<label>
-														<input name="rb_unit" type="radio" class="ace" value='2'  />
-														<span class="lbl">Box</span>
-													</label>
+													<?php echo $list_item_type; ?>
 												</div>
 
-												<label class="col-sm-1 control-label no-padding-left" >Qty</label>
-												<div class="col-sm-6">
-													<input type="text" id="txt_qty" name="txt_qty" class="col-xs-12 txt_numeric" required />
+												<label class="col-sm-3 control-label no-padding-left" style='text-align:right;' >CRT Capacity</label>
+												<div class="col-sm-3">
+													<input type="text" id="txt_qty" name="txt_capacity" class="col-xs-12 txt_numeric" required />
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Name</label>
-												<div class="col-sm-11">
+												<label class="col-sm-2 control-label no-padding-left" >Name</label>
+												<div class="col-sm-10">
 													<input type="text" id="txt_name" name="txt_name" class="col-xs-12" required />
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Stock</label>
-												<div class="col-sm-11">
-													<input type="text" id="txt_stock" name="txt_stock" class="col-xs-12 txt_numeric" required />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-left" >Buy Price</label>
-												<label class="col-sm-3 control-label no-padding-left" >Store Price</label>
-												<label class="col-sm-3 control-label no-padding-left" >Canvas Price</label>
-												<label class="col-sm-3 control-label no-padding-left" >Motoris Price</label>
-											</div>
-
-											<div class="form-group">
-												<div class="col-sm-3">
-													<input type="text" id="txt_buy" name="txt_buy" class="col-xs-12 txt_numeric" required />
-												</div>
-
-												<div class="col-sm-3">
+												<label class="col-sm-2 control-label no-padding-left" >Store Price</label>
+												<div class="col-sm-10">
 													<input type="text" id="txt_store" name="txt_store" class="col-xs-12 txt_numeric" required />
 												</div>
-
-												<div class="col-sm-3">
-													<input type="text" id="txt_canvas" name="txt_canvas" class="col-xs-12 txt_numeric" required />
-												</div>
-
-												<div class="col-sm-3">
-													<input type="text" id="txt_motoris" name="txt_motoris" class="col-xs-12 txt_numeric" required />
-												</div>
-
 											</div>
 
+											<div class="form-group">
+												<label class="col-sm-2 control-label no-padding-left" >TO Price</label>
+												<div class="col-sm-10">
+													<input type="text" id="txt_to" name="txt_to" class="col-xs-12 txt_numeric" required />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-sm-2 control-label no-padding-left" >Motoris Price</label>
+												<div class="col-sm-10">
+													<input type="text" id="txt_motoris" name="txt_motoris" class="col-xs-12 txt_numeric" required />
+												</div>
+											</div>
+
+											
 											<br><br>
 											<div class="form-group">
 												<label class="col-sm-1 control-label" >

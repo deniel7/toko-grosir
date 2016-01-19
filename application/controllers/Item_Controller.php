@@ -10,7 +10,7 @@
 			$this->load->model('Item_model');
 		}
 		
-		function get_list($msg) {
+		public function get_list($msg) {
 			$data['msg'] = $this->my_message($msg);
 			$data['head_template'] = 'template/head_template_view';
 			$data['head'] = 'item/head_view';
@@ -23,17 +23,18 @@
 			$data['row'] = "";
 
 			foreach ($res as $r) {
-				$unit_name = $this->get_unit_name($r->unit);
+				$box_stock = $r->crt_capacity * $r->stock;
 
 				$data['row'] .= "<tr>
 									<td>".$r->code."</td>
 									<td>".$r->name."</td>
-									<td>".$unit_name . ' / ' . $r->unit_qty."</td>
+									<td>".$r->crt_capacity."</td>
+									<td>".$box_stock."</td>
 									<td>".$r->stock."</td>
-									<td>".$r->buy_price."</td>
-									<td>".$r->store_price."</td>
-									<td>".$r->canvas_price."</td>
-									<td>".$r->motoris_price."</td>
+									<td>".$this->my_to_currency($r->buy_price)."</td>
+									<td>".$this->my_to_currency($r->store_price)."</td>
+									<td>".$this->my_to_currency($r->to_price)."</td>
+									<td>".$this->my_to_currency($r->motoris_price)."</td>
 									<td>
 										<div class='hidden-sm hidden-xs action-buttons'>
 											<a class='green' href='".base_url()."item/edit/".$r->code."/0'>
@@ -51,16 +52,45 @@
 			$this->load->view('item/index', $data);
 		}
 		
-		function get_unit_name($id){
-			switch ($id) {
-			 	case '1' : $name = 'CRT'; break;
-			 	case '2' : $name = 'Box'; break;
-			 	default  : $name = 'undefined'; ;break;
-			} 
-			return $name;
-		}	
 
-		function add($msg) {
+		public function create_item_type_radio(){
+			$val = $this->Item_model->get_item_type_radio();
+			$ret = "";
+			$i = 0;
+
+			foreach ($val as $r){
+				if ($i==0)
+					$checked = 'checked';
+				else	 
+					$checked = '';
+
+				$ret .= "<label class='control-label'>
+							<input name='rb_type' type='radio' value='".$r->id."' required $checked />
+							<span class='lbl'> ".$r->name."</span>
+						</label>&nbsp;&nbsp;&nbsp;&nbsp;";
+			}
+
+			return $ret;
+
+		}
+
+		public function create_item_type_radio_edit($p){
+			$val = $this->Item_model->get_item_type_radio();
+			$ret = "";
+			$i = 0;
+
+			foreach ($val as $r){
+				$ret .= "<label class='control-label'>
+							<input name='rb_type' type='radio' value='".$r->id."' required ".($r->id==$p?'checked':'')."  />
+							<span class='lbl'> ".$r->name."</span>
+						</label>&nbsp;&nbsp;&nbsp;&nbsp;";
+			}
+
+			return $ret;
+
+		}
+
+		public function add($msg) {
 			$data['msg'] = $this->my_message($msg);
 			$data['head_template'] = 'template/head_template_view';
 			$data['head'] = 'item/head_view';
@@ -69,6 +99,7 @@
 			$data['content'] = 'item/add_view';
 			$data['footer'] = 'template/footer_view';
 
+			$data['list_item_type'] = $this->create_item_type_radio();
 			$this->load->view('item/index', $data);
 		}	
 		
@@ -91,27 +122,25 @@
 			$data['content'] = 'item/edit_view';
 			$data['footer'] = 'template/footer_view';
 			
+
 			$res = $this->Item_model->edit($id);
-		/*	$ret->code, $ret->name, $ret->unit, $ret->unit_qty,
-							$ret->stock, $ret->buy_price, $ret->store_price, $ret->canvas_price,
-							$ret->motoris_price, $ret->active, $ret->create_by, $ret->create_at,
-							$ret->update_by, $ret->update_at
-							*/
+		/*	$ret->code, $ret->name, $ret->item_type_id, $ret->crt_capacity,
+			$ret->stock, $ret->buy_price, $ret->store_price, $ret->to_price,
+			$ret->motoris_price, $ret->active, $ret->create_by, $ret->create_at,
+			$ret->update_by, $ret->update_at
+		*/
 			$data['code'] = $res[0];
 			$data['name'] = $res[1];
-			$data['unit'] = $res[2];
-			$data['unit_qty'] = $res[3];
+			$data['item_type_id'] = $res[2];
+			$data['crt_capacity'] = $res[3];
 			$data['stock'] = $res[4];
 			$data['buy_price'] = $res[5];
 			$data['store_price'] = $res[6];
-			$data['canvas_price'] = $res[7];
+			$data['to_price'] = $res[7];
 			$data['motoris_price'] = $res[8];
-			$data['active'] = $res[9];
-			$data['create_by'] = $res[10];
-			$data['create_at'] = $res[11];
-			$data['update_at'] = $res[12];
-			$data['update_by'] = $res[13];
 			
+			$data['list_item_type'] = $this->create_item_type_radio_edit($res[2]);
+
 			$this->load->view('item/index', $data);
 		}
 

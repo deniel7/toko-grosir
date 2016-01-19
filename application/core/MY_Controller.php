@@ -40,14 +40,8 @@
 			$this->load->view('errors/html/error_test');
 		}
 
-		public function myget_boss($p='', $dir){
-			$this->load->model('Employee_model');
-			$res = $this->Employee_model->get_boss($dir);
-
-			$ret = "<option value=''>- Pilih -</option>";
-			foreach ($res as $r){
-				$ret .= "<option value='".$r->id."' ".($r->id==$p?'selected':'').">".$r->name."</option>";
-			}
+		public function my_to_currency($p){
+			$ret = number_format($p, 0, ".", ",");
 
 			return $ret;
 			

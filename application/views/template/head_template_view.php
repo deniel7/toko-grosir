@@ -25,7 +25,15 @@
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
+		<style>
+			.form-group > label[class*="col-"]{
+				padding-left: 3px;
+			}
 
+			.form-horizontal .control-label{
+				text-align: left;
+			}
+		</style>
 		<!-- ace settings handler -->
 		<script src="<?php echo base_url(); ?>assets/js/ace-extra.min.js"></script>
 

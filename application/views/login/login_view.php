@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Login Page - Ace Admin</title>
+		<title>Online Inventory Control Application</title>
 
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" />

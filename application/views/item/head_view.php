@@ -9,7 +9,7 @@
 				.dataTable( {
 					bAutoWidth: false,
 					"aoColumns": [
-					  null, null, null, null, null, null, null, null, { "bSortable": false }
+					  null, null, null, null, null, null, null, null, null, { "bSortable": false }
 					],
 					"aaSorting": [],
 					

@@ -39,8 +39,9 @@
 													<tr>
 														<th>Code</th>
 														<th>Name</th>
-														<th>Unit</th>
-														<th>Stock</th>
+														<th>CRT Capacity</th>
+														<th>Box Stock</th>
+														<th>CRT Stock</th>
 														<th>Buy Price</th>
 														<th>Store Price</th>
 														<th>Canvas Price</th>

@@ -22,6 +22,14 @@
 			return $query->result();
 		}
 
+		public function get_item_type_radio(){
+			$sql = "SELECT * 
+					FROM mst_item_type ORDER BY name ASC";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
 		public function is_exist($id){
 			$sql = "SELECT * 
 					FROM mst_item 
@@ -50,13 +58,12 @@
 
 		public function insert_item(){
 			$txt_code = $this->format_string($this->input->post('txt_code'));
-			$rb_unit = $this->input->post('rb_unit');
+			$rb_type = $this->input->post('rb_type');
 			$txt_name = $this->format_string($this->input->post('txt_name'));
-            $txt_qty = $this->format_number($this->input->post('txt_qty'));
-            $txt_stock = $this->format_number($this->input->post('txt_stock'));
+            $txt_capacity = $this->format_number($this->input->post('txt_capacity'));
             $txt_buy = $this->format_number($this->input->post('txt_buy'));
             $txt_store = $this->format_number($this->input->post('txt_store'));
-            $txt_canvas = $this->format_number($this->input->post('txt_canvas'));
+            $txt_to = $this->format_number($this->input->post('txt_to'));
             $txt_motoris = $this->format_number($this->input->post('txt_motoris'));
 
             $create_by = $this->session->userdata['logged_in']['username'];
@@ -66,12 +73,12 @@
 			$data = array(
 					   'code' => $txt_code,
 					   'name' => $txt_name,
-					   'unit' => $rb_unit,
-					   'unit_qty' => $txt_qty,
-					   'stock' => $txt_stock,
-					   'buy_price' => $txt_buy,
+					   'item_type_id' => $rb_type,
+					   'crt_capacity' => $txt_capacity,
+					   'stock' => '0',
+					   'buy_price' => '0',
 					   'store_price' => $txt_store,
-					   'canvas_price' => $txt_canvas,
+					   'to_price' => $txt_to,
 					   'motoris_price' => $txt_motoris,
 					   'active' => $active,
 					   'create_by' => $create_by,
@@ -102,8 +109,8 @@
 			$exe = $this->db->query($sql);
 			$ret = $exe->row();
 			$arr = array(
-							$ret->code, $ret->name, $ret->unit, $ret->unit_qty,
-							$ret->stock, $ret->buy_price, $ret->store_price, $ret->canvas_price,
+							$ret->code, $ret->name, $ret->item_type_id, $ret->crt_capacity,
+							$ret->stock, $ret->buy_price, $ret->store_price, $ret->to_price,
 							$ret->motoris_price, $ret->active, $ret->create_by, $ret->create_at,
 							$ret->update_by, $ret->update_at
 						);
@@ -112,13 +119,12 @@
 
 		public function edit_item(){
 			$txt_code = $this->format_string($this->input->post('txt_code'));
-			$rb_unit = $this->input->post('rb_unit');
+			$rb_type = $this->input->post('rb_type');
 			$txt_name = $this->format_string($this->input->post('txt_name'));
-            $txt_qty = $this->format_number($this->input->post('txt_qty'));
-            $txt_stock = $this->format_number($this->input->post('txt_stock'));
+            $txt_capacity = $this->format_number($this->input->post('txt_capacity'));
             $txt_buy = $this->format_number($this->input->post('txt_buy'));
             $txt_store = $this->format_number($this->input->post('txt_store'));
-            $txt_canvas = $this->format_number($this->input->post('txt_canvas'));
+            $txt_to = $this->format_number($this->input->post('txt_to'));
             $txt_motoris = $this->format_number($this->input->post('txt_motoris'));
 
             $update_by = $this->session->userdata['logged_in']['username'];
@@ -126,9 +132,8 @@
             $active = 1;
 
 			$sql = "UPDATE mst_item 
-					SET name='$txt_name', unit='$rb_unit', unit_qty='$txt_qty',
-						stock='$txt_stock', buy_price='$txt_buy', store_price='$txt_store',
-						canvas_price='$txt_canvas', motoris_price='$txt_motoris', 
+					SET name='$txt_name', item_type_id='$rb_type', crt_capacity='$txt_capacity',
+						store_price='$txt_store', to_price='$txt_to', motoris_price='$txt_motoris', 
 						update_by='$update_by', update_at='$date'
 					WHERE code='$txt_code'
 					";
@@ -136,7 +141,7 @@
 			$this->db->query($sql);
 
 			return true;
-			//echo $txt_motoris;
+			
 		}
 
 		public function edit_exe(){
