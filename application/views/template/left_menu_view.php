@@ -153,6 +153,13 @@
 							</li>
 
 							<li class="">
+								<a href="<?php echo base_url(); ?>salesman/list/0">
+									<i class="menu-icon fa fa-caret-right"></i>Salesman
+								</a>
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
 								<a href="<?php echo base_url(); ?>supplier/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>Supplier
 								</a>
@@ -162,6 +169,33 @@
 							<li class="">
 								<a href="<?php echo base_url(); ?>user/list/0">
 									<i class="menu-icon fa fa-caret-right"></i>User
+								</a>
+								<b class="arrow"></b>
+							</li>
+							
+						</ul>
+					</li>
+
+					<li class="open">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-pencil-square-o"></i>
+							<span class="menu-text">Transaction</span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+						<b class="arrow"></b>
+
+						<ul class="submenu">
+							<li class="">
+								<a href="<?php echo base_url(); ?>receiving/list/0">
+									<i class="menu-icon fa fa-caret-right"></i>Receiving
+								</a>
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="<?php echo base_url(); ?>sales/list/0">
+									<i class="menu-icon fa fa-caret-right"></i>Sales
 								</a>
 								<b class="arrow"></b>
 							</li>

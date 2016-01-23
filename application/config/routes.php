@@ -108,3 +108,28 @@ $route['item/list/(:any)'] = 'Item_Controller/get_list/$1';
 $route['item/add/(:any)'] = 'Item_Controller/add/$1';
 $route['item/edit/(:any)/(:any)'] = 'Item_Controller/edit/$1/$2';
 $route['item/delete/(:any)'] = 'Item_Controller/delete/$1';
+
+$route['salesman'] = 'Salesman_Controller';
+$route['salesman/(:any)'] = 'Salesman_Controller/$1';
+$route['salesman/list'] = 'Salesman_Controller/get_list';
+$route['salesman/list/(:any)'] = 'Salesman_Controller/get_list/$1';
+$route['salesman/add/(:any)'] = 'Salesman_Controller/add/$1';
+$route['salesman/edit/(:any)/(:any)'] = 'Salesman_Controller/edit/$1/$2';
+$route['salesman/delete/(:any)'] = 'Salesman_Controller/delete/$1';
+
+
+$route['receiving'] = 'Receiving_Controller';
+$route['receiving/(:any)'] = 'Receiving_Controller/$1';
+$route['receiving/list'] = 'Receiving_Controller/get_list';
+$route['receiving/list/(:any)'] = 'Receiving_Controller/get_list/$1';
+$route['receiving/add/(:any)'] = 'Receiving_Controller/add/$1';
+$route['receiving/edit/(:any)/(:any)'] = 'Receiving_Controller/edit/$1/$2';
+$route['receiving/delete/(:any)'] = 'Receiving_Controller/delete/$1';
+
+$route['sales'] = 'Sales_Controller';
+$route['sales/(:any)'] = 'Sales_Controller/$1';
+$route['sales/list'] = 'Sales_Controller/get_list';
+$route['sales/list/(:any)'] = 'Sales_Controller/get_list/$1';
+$route['sales/add/(:any)'] = 'Sales_Controller/add/$1';
+$route['sales/edit/(:any)/(:any)'] = 'Sales_Controller/edit/$1/$2';
+$route['sales/delete/(:any)'] = 'Sales_Controller/delete/$1';

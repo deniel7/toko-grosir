@@ -1,0 +1,11 @@
+format no faktur jual dan beli :
+
+20.01.16.00001
+
+ket :
+20 : tgl
+01 : bulan
+16 : tahun
+00001 : no urut
+
+# tanpa titik
