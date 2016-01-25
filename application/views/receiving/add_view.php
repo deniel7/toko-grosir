@@ -19,26 +19,28 @@
 		
 					<div class="page-content">
 						<div class="row">
-							<div class="col-xs-12">
-							<?php echo $msg; ?>
-							<br>
+							<div class="col-xs-12 " ><?php echo $msg; ?></div>
+							
+							<div class="col-xs-12 form_apps" >
 								<div class="row">
 									<div class="col-xs-12">
-										<form action="<?php echo base_url(); ?>receiving/add_exe" method="post" name="frm_add_cust" id="frm_add_cust" class="form-horizontal" role="form">
+										<form action="<?php echo base_url(); ?>receiving/add_exe" method="post" name="frm_add_rec" id="frm_add_rec" class="form-horizontal" role="form">
 											<div class="form-group">
 												<label class="col-sm-1 control-label no-padding-left" >Rec.No</label>
 												<div class="col-sm-3">
-													<input type="text" id="txt_recno" name="txt_recno" class="col-xs-12" required />
+													<input type="text" id="txt_recno" name="txt_recno" class="col-xs-12" required maxlength="14" autofocus />
 												</div>
 												<div class="col-sm-8">
-													<input type="text" id="txt_phone" name="txt_phone" class="col-xs-12" />
+													<select name='cb_supplier' id='cb_supplier' class="col-xs-12">
+														<?php echo $list_supplier; ?>
+													</select>
 												</div>
 											</div>
 
 											<div class="form-group">
 												<label class="col-sm-1 control-label no-padding-left" >Date</label>
 												<div class="col-sm-11">
-													<input type="text" id="txt_date" name="txt_date" class="col-xs-12 date-picker" value='<?php echo $date; ?>' data-date-format='dd-mm-yyyy' />
+													<input type="text" id="txt_date" name="txt_date" class="col-xs-12 date-picker" value='<?php echo $date; ?>' data-date-format='dd-mm-yyyy' required />
 												</div>
 											</div>
 
@@ -72,22 +74,30 @@
 													<tbody>
 														
 														<?php echo $item_row; ?>
-														<div id='add_row'></div>
-														<tr>
+														<div id='add_row' class="form-group"></div>
+													<!--	<tr>
 															<td colspan='6' style='text-align:right;'>
 																<b>Total
 															</td>
 															<td>
-																<input type='text' id='txt_total' name='txt_total' class='col-xs-12 txt_numeric' />
+																
 															</td>
 														</tr>
+														-->
 													</tbody>
 												</table>
 											</div>
 
+											<div class="form-group" style="padding-right:6px;">
+												<label class="col-sm-10 control-label no-padding-left" style="text-align:right;"><b>Total</b></label>
+												<div class="col-sm-2" style="">
+													<input type='text' id='txt_total' name='txt_total' class='col-xs-12 txt_numeric' readonly />
+												</div>
+											</div>
+
 											<div class="form-group">
 												<div class="col-sm-12">
-													<button type="button" class="btn btn-success btn-sm">
+													<button type="button" class="btn btn-success btn-sm" id="btn_add_row">
 														<i class="ace-icon fa fa-arrow-down icon-on-down"></i>Add Row
 													</button>
 												

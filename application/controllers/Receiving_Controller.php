@@ -72,24 +72,52 @@
 		}
 
 		function create_row(){
-			
 			$row = "";
 			for ($i=0; $i<=4; $i++){
 				$row .= "<tr>
 							<td>
-								<input type='hidden' id='txt_item_id_' name='txt_item_id[]' class='col-xs-12' />
-								<input type='text' id='txt_item_' name='txt_item[]' class='col-xs-12 txt_numeric' />
+								<input type='hidden' id='txt_item_id_$i' name='txt_item_id[]' class='col-xs-12' />
+								<input type='text' id='txt_item_$i' name='txt_item[]' class='col-xs-12' onclick='this.setSelectionRange(0, this.value.length)' />
+								<ul id='autocomplete_$i' class='dropdown-menu' style='position:relative;width:100%'> </ul>
 							</td>
-							<td><input type='text' id='txt_qty_' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_buy_' name='txt_buy[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_store_' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_to_' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_motoris_' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_subtotal_' name='txt_subtotal[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_qty_$i' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_buy_$i' name='txt_buy[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_store_$i' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_to_$i' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_motoris_$i' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_subtotal_$i' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>
 						</tr>";	
 			}		
 
 			return $row;
+		}
+
+		public function get_supplier_combo($p=''){
+			$res = $this->Receiving_model->get_supplier_combo();
+
+			$ret = "";
+			foreach ($res as $r){
+				$ret .= "<option value='".$r->id."' ".($r->id==$p?'selected':'').">".$r->name."</option>";
+			}
+			return $ret;
+		}
+
+		function get_item(){
+			$item = $this->input->post("item");
+			$lastrow = $this->input->post("row");
+			
+			$list = $this->Receiving_model->get_item_ajax($item); 
+			
+			$res = "";
+			if (!empty($list)){
+				foreach($list as $row) {
+					$res .= '<li><a href="#" id="link_item" onclick="set_item(\''.$row->code.'\', \''.$row->name.'\', \''.$row->buy_price.'\', \''.$lastrow.'\');return false;" >
+							'.$row->name.'</a></li>';
+				}
+				echo $res;	
+			} else echo '<li><a href="#" id="link_item" onclick="return false;">no data</a></li>';
+			
+			
 		}
 
 		function add($msg) {
@@ -104,6 +132,9 @@
 			$data['list_payment'] = $this->create_payment_radio();
 			$data['item_row'] = $this->create_row();
 			$data['date'] = date('d-m-Y');
+
+			$data['list_supplier'] = $this->get_supplier_combo();
+
 
 			$this->load->view('receiving/index', $data);
 		}	

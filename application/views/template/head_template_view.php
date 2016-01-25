@@ -84,12 +84,12 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			var base_url = "<?php echo base_url(); ?>";
 			
-
 			function delete_confirm(){
 				if (confirm("Delete Data ?"))
 					return true;
 				else return false;
 			}
-
+			
 		</script>

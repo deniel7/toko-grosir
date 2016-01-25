@@ -203,19 +203,19 @@
 				case '1' : $ret = "<div class='alert alert-success alert-dismissable'>
 										<button class='close' aria-hidden='true' data-dismiss='alert' type='button'>×</button>
 										Data Saved.
-									</div>"; break;
+									</div><br>"; break;
 				case '2' : $ret = "<div class='alert alert-success alert-dismissable'>
 										<button class='close' aria-hidden='true' data-dismiss='alert' type='button'>×</button>
 										Data Updated.
-									</div>"; break;
+									</div><br>"; break;
 				case '3' : $ret = "<div class='alert alert-success alert-dismissable'>
 										<button class='close' aria-hidden='true' data-dismiss='alert' type='button'>×</button>
 										Data Deleted.
-									</div>"; break;
+									</div><br>"; break;
 				case '4' : $ret = "<div class='alert alert-danger alert-dismissable'>
 										<button class='close' aria-hidden='true' data-dismiss='alert' type='button'>×</button>
 										Error on Operation.
-									</div>"; break;
+									</div><br>"; break;
 				default  : $ret = "";
 			}
 			return $ret;

@@ -13,6 +13,44 @@
 			return $fmt;
 		}
 
+		function autonum_rec() {	
+			$now = date("dmy");
+			$start = date("y-m-d 00:00:00");
+			$end = date("y-m-d 23:59:59");
+
+			$sql = $this->db->query("select MAX(substr(no_faktur,9,7)) as idnew from t_jual where create_at >='$start' and create_at <= '$end' ")->row(); 
+
+			if ($sql){
+				$r = $sql->idnew + 1;//max id +1
+				$new_id = 'JB' . $now . str_pad($r, 7, '0', STR_PAD_LEFT);
+
+			} else {
+				$new_id = 'JB' . $now . '0000001';
+			}
+			
+
+			
+			return $new_id;
+			
+		}
+
+		public function get_item_ajax($item){
+			$sql = "SELECT * 
+					FROM mst_item WHERE LOWER(name) LIKE '%".strtolower($item)."%'  ";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
+		public function get_supplier_combo(){
+			$sql = "SELECT * 
+					FROM mst_supplier
+					 ";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
 		public function get_list(){
 			$sql = "SELECT * 
 					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
@@ -56,7 +94,7 @@
 		}
 
 
-		public function insert_item(){
+		public function insert_rec(){
 			$txt_code = $this->format_string($this->input->post('txt_code'));
 			$rb_type = $this->input->post('rb_type');
 			$txt_name = $this->format_string($this->input->post('txt_name'));

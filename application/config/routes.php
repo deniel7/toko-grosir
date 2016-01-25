@@ -125,6 +125,7 @@ $route['receiving/list/(:any)'] = 'Receiving_Controller/get_list/$1';
 $route['receiving/add/(:any)'] = 'Receiving_Controller/add/$1';
 $route['receiving/edit/(:any)/(:any)'] = 'Receiving_Controller/edit/$1/$2';
 $route['receiving/delete/(:any)'] = 'Receiving_Controller/delete/$1';
+$route['receiving/get_item/(:any)'] = 'Receiving_Controller/get_item/$1';
 
 $route['sales'] = 'Sales_Controller';
 $route['sales/(:any)'] = 'Sales_Controller/$1';

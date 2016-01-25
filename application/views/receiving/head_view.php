@@ -88,8 +88,137 @@
 
 				//auto numeric
 				$('.txt_numeric').autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				$('#txt_total').autoNumeric('init', {vMin: '0', vMax: '99999999999'});
 				
+				//////////////////////////////////////////////// receiving ///////////////////////////////////////////////
+				
+				//add new row
+	            $("#btn_add_row").click(function (){
+	                var elements = document.getElementsByName("txt_item[]");
+	                last_row = elements.length;
+	                
+	                var tambah  = "<tr>";
+	                    tambah +=   "<td>";
+	                    tambah +=       "<input type='hidden' id='txt_item_id_'"+last_row+" name='txt_item_id[]' class='col-xs-12' />";
+	                    tambah +=       "<input type='text' id='txt_item_"+last_row+"' name='txt_item[]' class='col-xs-12' onclick='this.setSelectionRange(0, this.value.length)' />";
+	                    tambah +=   	"<ul id='autocomplete_"+last_row+"' class='dropdown-menu' style='position:relative;width:100%'> </ul>";
+	                    tambah +=   "</td>";
+	                    tambah +=   "<td><input type='text' id='txt_qty_"+last_row+"' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_buy_"+last_row+"' name='txt_buy[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_store_"+last_row+"' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_to_"+last_row+"' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_motoris_"+last_row+"' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_subtotal_"+last_row+"' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>";
+	                    tambah += "</tr>";
+	                    
+	                //$("#add_row").append(tambah);
+	                $('#add_rec_table tr:last').after(tambah);
+
+	                set_calculate(last_row);
+					search_item(last_row);
+
+	               /* hitung();
+
+	                $('.numeric').on('blur change keyup', function() {
+	                    hitung();
+	                });*/
+
+	            
+	            });
+
+				var elements = document.getElementsByName("txt_item[]");
+				var count_row = elements.length -1;
+				var i = 0; var tmp = 0;
+				
+				
+
+
+				while(i<=count_row){
+					set_calculate(i);
+					search_item(i);
+					i++;
+				}
+				
+
+
 			})
+
+
+			function set_calculate(i){
+				$('#txt_qty_'+i+', #txt_buy_'+i).on('blur change keyup', function() {
+				    calculate(i);
+				});
+			}
+
+			function search_item(i){
+				$("#txt_item_"+i).on('keyup keypress', function(){	
+		    		var item = $("#txt_item_"+i).val();
+					var min_length = 1; 
+					if (item.length >= min_length) {
+						$.ajax({
+							type 	: "POST",
+							url 	: base_url+"receiving/get_item/",
+							data 	: "item="+item+"&row="+i,
+							cache	: false,
+							success	: function(msg){
+								data = msg;
+								$("#autocomplete_"+i).html(data);
+								$("#autocomplete_"+i).show('linear');
+							}
+						});
+					}else {
+						$("#autocomplete_"+i).hide();
+						$("#txt_item_"+i).val('');
+					}
+				});
+			}
+
+			function set_item(code, name, buy_price, lastrow){
+				$("#txt_item_id_"+lastrow).val(code);
+				$("#txt_item_"+lastrow).val(name);
+				
+				$("#txt_buy_"+lastrow).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				$("#txt_buy_"+lastrow).autoNumeric('set', buy_price);
+
+				$("#autocomplete_"+lastrow).hide();
+				$("#txt_qty_"+lastrow).focus();
+				
+				calculate(lastrow);
+				return false;
+			}
+
+			function calculate(row){
+				$('#txt_buy_'+row).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				$('#txt_qty_'+row).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				$('#txt_subtotal_'+row).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				$('#txt_total').autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+
+				buy_price = $("#txt_buy_"+row).autoNumeric('get');
+				qty = $("#txt_qty_"+row).autoNumeric('get');
+				sub = $("#txt_subtotal_"+row).autoNumeric('get');
+
+				sub = buy_price * qty;
+				$("#txt_subtotal_"+row).autoNumeric('set', sub);
+				
+				var elements = document.getElementsByName("txt_subtotal[]");
+				var count_row = elements.length - 1;
+				var x = 0; var tmp = 0;
+
+				while(x<=count_row){
+					tmp = tmp + parseInt($("#txt_subtotal_"+x).autoNumeric('get'));
+					x++;
+				}
+
+				$("#txt_total").autoNumeric('set', tmp);
+
+			}
+
+			function format_number(str){
+				tmp = str.replace(",", ""); 
+				tmp2 = str.replace(".", ""); 
+				return tmp2;
+			}
+
 
 	</script>						
 
