@@ -98,7 +98,7 @@
 
 		public function get_list(){
 			$sql = "SELECT * 
-					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
+					FROM trn_sales a JOIN mst_customer b ON(a.customer_id=b.id) 
 					 ";
 
 			$query = $this->db->query($sql);
@@ -139,48 +139,81 @@
 		}
 
 
-		public function insert_rec(){
-			$txt_code = $this->format_string($this->input->post('txt_code'));
-			$rb_type = $this->input->post('rb_type');
-			$txt_name = $this->format_string($this->input->post('txt_name'));
-            $txt_capacity = $this->format_number($this->input->post('txt_capacity'));
-            $txt_buy = $this->format_number($this->input->post('txt_buy'));
-            $txt_store = $this->format_number($this->input->post('txt_store'));
-            $txt_to = $this->format_number($this->input->post('txt_to'));
-            $txt_motoris = $this->format_number($this->input->post('txt_motoris'));
+		public function insert_sales(){
+			$cb_salesman = $this->input->post('cb_salesman');
+			$cb_customer = $this->input->post('cb_customer');
+
+			$txt_salesno = $this->format_string($this->input->post('txt_salesno'));
+			$txt_date = $this->to_Ymd($this->input->post('txt_date'));
+			$txt_due = $this->to_Ymd($this->input->post('txt_due'));
+
+            $rb_payment = $this->format_number($this->input->post('rb_payment'));
+            $txt_total = $this->format_number($this->input->post('txt_total'));
 
             $create_by = $this->session->userdata['logged_in']['username'];
             $date = date('Y-m-d');
             $active = 1;
 
 			$data = array(
-					   'code' => $txt_code,
-					   'name' => $txt_name,
-					   'item_type_id' => $rb_type,
-					   'crt_capacity' => $txt_capacity,
-					   'stock' => '0',
-					   'buy_price' => '0',
-					   'store_price' => $txt_store,
-					   'to_price' => $txt_to,
-					   'motoris_price' => $txt_motoris,
-					   'active' => $active,
+					   'sales_no' => $txt_salesno,
+					   'customer_id' => $cb_customer,
+					   'date' => $txt_date,
+					   'due_date' => $txt_due,
+					   'payment_id' => $rb_payment,
+					   'total' => $txt_total,
 					   'create_by' => $create_by,
 					   'create_at' => $date,
 					   'update_by' => null,
-					   'update_at' => null
+					   'update_at' => null,
+					   'status' => $rb_payment
+					  
 					);
-			if ($this->is_exist($txt_code)=='1'){
-				return false;
-			}
-			else {
-				$this->db->insert('mst_item', $data);
-				return true;	
-			}
+			
+			$this->db->insert('trn_sales', $data);
+			$id =  $this->db->insert_id();
+			
+			$this->insert_sales_detail($id);
+
+			return true;
 			
 		}
 
+		public function insert_sales_detail($head_id){
+			$txt_item_id = $this->input->post('txt_item_id');
+			$txt_item = $this->input->post('txt_item');
+			$txt_qty = $this->format_number($this->input->post('txt_qty'));
+			$txt_sell_price = $this->format_number($this->input->post('txt_sell_price'));
+			
+			$txt_store = $this->format_number($this->input->post('txt_store'));
+			$txt_to = $this->format_number($this->input->post('txt_to'));
+			$txt_motoris = $this->format_number($this->input->post('txt_motoris'));
+			$txt_subtotal = $this->format_number($this->input->post('txt_subtotal'));
+
+			$i = 0; 
+			while($i<count($txt_item_id)){
+				if (($txt_item[$i]=="") or empty($txt_item[$i]) or (str_replace(' ', '', $txt_item[$i])=="") ){
+					$i++;
+					continue;
+				}
+				else {
+					//$this->update_item_data($txt_item_id[$i], $txt_sell_price[$i], $txt_qty[$i]);
+					$data = array(
+							   'head_id' => $head_id,
+							   'item_id' => $txt_item_id[$i],
+							   'price' => $txt_sell_price[$i],
+							   'qty' => $txt_qty[$i],
+							   'subtotal' => $txt_subtotal[$i]
+							);
+					
+					$this->db->insert('trn_sales_detail', $data);		
+					$i++;
+				}
+			}
+
+		}
+
 		public function add_exe(){
-			if ($this->insert_item())
+			if ($this->insert_sales())
 				return '1';
 			else 
 				return '0';

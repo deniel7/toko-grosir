@@ -24,11 +24,17 @@
 
 			foreach ($res as $r) {
 				$data['row'] .= "<tr>
-									<td>".$r->rec_no."</td>
+									<td>".$r->sales_no."</td>
 									<td>".$r->name."</td>
 									<td>".$r->date."</td>
 									<td>".$r->due_date."</td>
+									<td>".$r->payment_id."</td>
+
 									<td>".$r->total."</td>
+									<td>".$r->create_by."</td>
+									<td>".$r->create_at."</td>
+									<td>".$r->update_by."</td>
+									<td>".$r->update_at."</td>
 									<td>".$r->status."</td>
 									<td>
 										<div class='hidden-sm hidden-xs action-buttons'>
@@ -203,13 +209,14 @@
 
 			$data['list_salesman'] = $this->get_salesman_combo();
 			$data['list_customer'] = $this->get_customer_combo();
+			$data['list_payment'] = $this->create_payment_radio();
 
 
 			$this->load->view('receiving/index', $data);
 		}	
 		
 		public function add_exe(){
-			$r = $this->Receiving_model->add_exe();
+			$r = $this->Sales_model->add_exe();
 			if ($r=='1')
 				$page = base_url() . 'sales/add/1';
 			else 

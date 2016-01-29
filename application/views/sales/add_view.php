@@ -25,46 +25,67 @@
 							
 							<div class="col-xs-12 form_apps" >
 								<div class="row">
-									<div class="col-xs-6">
+									<div class="col-xs-12">
+										<div class="form-group">
+												<label class="col-sm-1 control-label no-padding-left" >Sales.No</label>
+												<div class="col-sm-3">
+													<input type="text" id="txt_salesno" name="txt_salesno" class="col-xs-12" required maxlength="14" autofocus />
+												</div>
+												
+										</div>
+
+										<div class="form-group">
+
+												<label class="col-sm-1 control-label no-padding-left" >Customer</label>
+												
+												<div class="col-sm-11">
+													<select name='cb_supplier' id='cb_supplier' class="col-xs-12">
+														<?php echo $list_customer; ?>
+													</select>
+												</div>
+
+										</div>
+
+										
+
+
 										<div class="form-group">
 												
-												<label class="col-sm-3 control-label no-padding-left" >Salesman</label>
+												<label class="col-sm-1 control-label no-padding-left" >Salesman</label>
 												
-												<div class="col-sm-3">
+												<div class="col-sm-11">
 													<select name='cb_salesman' id='cb_salesman' class="col-xs-12">
 															<?php echo $list_salesman; ?>
 													</select>
 												</div>
 												
-											</div>
-									</div>
-									<div class="col-xs-6">
+										</div>
 										<div class="form-group">
 												<label class="col-sm-1 control-label no-padding-left" >Date</label>
 												<div class="col-sm-11">
 													<input type="text" id="txt_date" name="txt_date" class="col-xs-12 date-picker" value='<?php echo $date; ?>' data-date-format='dd-mm-yyyy' required />
 												</div>
 											</div>
-									</div>									
+														
+
+									</div>
+									
+													
 
 
 									<div class="col-xs-12">
 										
-											
 
 											<div class="form-group">
-												
-												<label class="col-sm-1 control-label no-padding-left" >Customer</label>
-												
+												<label class="col-sm-1 control-label no-padding-left" >Payment</label>
 												<div class="col-sm-3">
-													<select name='cb_customer' id='cb_customer' class="col-xs-12">
-															<?php echo $list_customer; ?>
-													</select>
+													<?php echo $list_payment; ?>
 												</div>
 												
+												<div class="col-sm-8">
+													<input type="text" id="txt_due" name="txt_due" class="col-xs-12 date-picker" placeholder="due date" data-date-format='dd-mm-yyyy' />
+												</div>
 											</div>
-
-											
 
 											<br>
 											<div class="form-group">
