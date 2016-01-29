@@ -42,41 +42,41 @@
 			return $query->result();
 		}
 
-		public function get_item_combo_price($item,$jenis){
+		public function get_price_by_jenis_satuan($item, $jenis, $satuan){
 			if($jenis == 's'){
 				$kolom = 'store_price';
-
 			}else if($jenis == 'm'){
 				$kolom = 'motoris_price';
-
 			}else{
 				$kolom = 'to_price';
 			}
 
-			$sql = "SELECT $kolom AS price
-					FROM mst_item WHERE code = '$item'";
 
-			$query = $this->db->query($sql);
-			return $query->result();
-		}
-
-		public function get_satuan_price($item,$satuan){
 			if($satuan == 'crt'){
-			
-			$sql = "SELECT buy_price AS price
-					FROM mst_item WHERE code = '$item'";
-
-
+				$sql = "SELECT $kolom AS price
+						FROM mst_item WHERE code = '$item'";
 			}else{
-			
-			$sql = "SELECT buy_price / crt_capacity AS price
-					FROM mst_item WHERE code = '$item'";
+				$sql = "SELECT $kolom / crt_capacity AS price
+						FROM mst_item WHERE code = '$item'";
 			}
 
 
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
+
+		/*public function get_satuan_price($item, $satuan, $jenis){
+			if($satuan == 'crt'){
+				$sql = "SELECT store_price AS price
+						FROM mst_item WHERE code = '$item'";
+			}else{
+				$sql = "SELECT store_price / crt_capacity AS price
+						FROM mst_item WHERE code = '$item'";
+			}
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}*/
 
 		public function get_salesman_combo(){
 			$sql = "SELECT * 

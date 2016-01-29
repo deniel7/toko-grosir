@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="col-xs-12 " ><?php echo $msg; ?></div>
 							
-							<form action="<?php echo base_url(); ?>sales/add_exe" method="post" name="frm_add_rec" id="frm_add_rec" class="form-horizontal" role="form">
+							<form action="<?php echo base_url(); ?>sales/add_exe" method="post" name="add_sales_table" id="add_sales_table" class="form-horizontal" role="form">
 							
 							<div class="col-xs-12 form_apps" >
 								<div class="row">
@@ -71,16 +71,13 @@
 												<table id="add_rec_table" class="table" style="width:99%;">
 													<thead>
 														<tr>
-															<th style='width:34%'>Item</th>
+															<th style='width:30%'>Item</th>
 															<th style='width:8%'>Stock</th>
-															
-															
-															<th>Price</th>
-															
-															<th>CRT / Box</th>
-															
-															
-															<th>Sel Price</th>
+															<th style='width:8%'>Price</th>
+															<th style='width:8%'>CRT / Box</th>
+															<th>Sell Price</th>
+															<th>Qty</th>
+															<th>Disc</th>
 															<th>Nett</th>
 															<th>Subtotal</th>
 														</tr>

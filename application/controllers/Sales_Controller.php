@@ -80,12 +80,11 @@
 								<input type='text' id='txt_item_$i' name='txt_item[]' class='col-xs-12' onclick='this.setSelectionRange(0, this.value.length)' />
 								<ul id='autocomplete_$i' class='dropdown-menu' style='position:relative;width:100%'> </ul>
 							</td>
-							<td><input type='text' id='txt_stock_$i' name='txt_stock[]' class='col-xs-6 txt_numeric' />
-							<input type='text' id='txt_crt_$i' name='txt_crt[]' class='col-xs-6 txt_numeric' /></td>
-							
-							
+							<td><input type='text' id='txt_stock_$i' name='txt_stock[]' class='col-xs-6 txt_numeric' readonly />
+								<input type='text' id='txt_crt_$i' name='txt_crt[]' class='col-xs-6 txt_numeric' readonly /></td>
+								
 							<td>
-								<select id='txt_price_$i' name='txt_price[]' class='col-xs-12'>
+								<select id='cb_price_$i' name='cb_price[]' class='col-xs-12'>
 									<option value=''>-</option>
 									<option value='s'>Store</option>
 									<option value='m'>Motoris</option>
@@ -94,19 +93,18 @@
 							</td>
 							
 							<td>
-								<select id='txt_satuan_$i' name='txt_satuan[]' class='col-xs-12'>
-									<option value=''>-</option>
-									<option value='crt'>Carton</option>
+								<select id='cb_satuan_$i' name='cb_satuan[]' class='col-xs-12'>
+									<option value='crt'>CRT</option>
 									<option value='box'>Box</option>
-									
 								 </select> 
 							</td>
-							<td><input type='text' id='txt_sell_price_$i' name='txt_sell_price[]' class='col-xs-12 txt_numeric' readonly /></td>
-							<td><input type='text' id='txt_to_$i' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_motoris_$i' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>
-							
-							<td><input type='text' id='txt_subtotal_$i' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>
+
+							<td><input type='text' id='txt_sell_price_$i' name='txt_sell_price[]' class='col-xs-12 txt_numeric' /></td>
 							<td><input type='text' id='txt_qty_$i' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>
+							<td><input type='text' id='txt_disc_$i' name='txt_disc[]' class='col-xs-12 txt_numeric' readonly /></td>
+							<td><input type='text' id='txt_nett_$i' name='txt_nett[]' class='col-xs-12 txt_numeric' readonly /></td>
+							<td><input type='text' id='txt_subtotal_$i' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>
+							
 						</tr>";	
 			}		
 
@@ -133,15 +131,19 @@
 			return $ret;
 		}
 
-		public function get_satuan_price($p=''){
-			$res = $this->Sales_model->get_satuan_price();
+		/*public function get_satuan_price(){
+			$item_id = $this->input->post("item_id");
+			$lastrow = $this->input->post("row");
+			$satuan = $this->input->post("satuan");
+			$jenis = $this->input->post("jenis");
 
-			$ret = "";
+			$res = $this->Sales_model->get_satuan_price($item_id, $satuan);
+
 			foreach ($res as $r){
-				$ret .= "<option value='".$r->id."' ".($r->id==$p?'selected':'').">".$r->name."</option>";
+				echo $r->price;
 			}
-			return $ret;
-		}
+
+		}*/
 
 		function get_item(){
 			$item = $this->input->post("item");
@@ -166,37 +168,19 @@
 			
 		}
 
-		function get_combo_price(){
-			$id = $this->input->post("id");
+		function get_price_by_jenis_satuan(){
+			$item_id = $this->input->post("item_id");
 			$jenis = $this->input->post("jenis");
+			$satuan = $this->input->post("satuan");
 			$lastrow = $this->input->post("row");
 			
 
-			$list = $this->Sales_model->get_item_combo_price($id,$jenis); 
+			$list = $this->Sales_model->get_price_by_jenis_satuan($item_id, $jenis, $satuan); 
 			
 			$res = "";
 			if (!empty($list)){
 				foreach($list as $row) {
-
-					if($jenis == 's'){
-						$kolom = 'store_price';
-
-					}else if($jenis == 'm'){
-						$kolom = 'motoris_price';
-
-					}else{
-						$kolom = 'to_price';
-					}
-					
 					echo $row->price;
-
-					// $stock = $row->stock;
-					// $crt_capacity = $row->crt_capacity;
-					// $crt = $stock * $crt_capacity;
-
-
-					// $res .= '<li><a href="#" id="link_item" onclick="set_item(\''.$row->code.'\', \''.$row->name.'\', \''.$row->buy_price.'\', \''.$stock.'\', \''.$crt.'\', \''.$lastrow.'\');return false;" >
-					// 		'.$row->name.'</a></li>';
 				}
 				
 			} else echo '';

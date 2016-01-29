@@ -99,29 +99,35 @@
 	                
 	                var tambah  = "<tr>";
 	                    tambah +=   "<td>";
-	                    tambah +=       "<input type='hidden' id='txt_item_id_'"+last_row+" name='txt_item_id[]' class='col-xs-12' />";
+	                    tambah +=       "<input type='hidden' id='txt_item_id_"+last_row+"' name='txt_item_id[]' class='col-xs-12' />";
 	                    tambah +=       "<input type='text' id='txt_item_"+last_row+"' name='txt_item[]' class='col-xs-12' onclick='this.setSelectionRange(0, this.value.length)' />";
 	                    tambah +=   	"<ul id='autocomplete_"+last_row+"' class='dropdown-menu' style='position:relative;width:100%'> </ul>";
 	                    tambah +=   "</td>";
+	                    tambah +=   "<td>";
+	                    tambah +=  		"<input type='text' id='txt_stock_"+last_row+"' name='txt_stock[]' class='col-xs-6 txt_numeric' readonly />";
+	                    tambah +=  		"<input type='text' id='txt_crt_"+last_row+"' name='txt_crt_[]' class='col-xs-6 txt_numeric' readonly />";
+	                    tambah +=   "</td>";
+	                    tambah +=   "<td>";
+	                    tambah +=   	"<select id='cb_price_"+last_row+"' name='cb_price[]' class='col-xs-12'>";
+	                    tambah +=   		"<option value=''>-</option> <option value='s'>Store</option>";
+	                    tambah +=   		"<option value='m'>Motoris</option> <option value='t'>TO</option>";
+	                    tambah +=   	"</select>";
+	                    tambah +=   "</td>";
+	                    tambah +=   "<td><select id='cb_satuan_"+last_row+"' name='cb_satuan[]' class='col-xs-12'><option value='crt'>CRT</option><option value='box'>Box</option></select> </td>";
+	                    tambah +=   "<td><input type='text' id='txt_sell_price_"+last_row+"' name='txt_sell_price[]' class='col-xs-12 txt_numeric' /></td>";
 	                    tambah +=   "<td><input type='text' id='txt_qty_"+last_row+"' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_buy_"+last_row+"' name='txt_buy[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_store_"+last_row+"' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_to_"+last_row+"' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_motoris_"+last_row+"' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_disc_"+last_row+"' name='txt_disc[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>";
+	                    tambah +=   "<td><input type='text' id='txt_nett_"+last_row+"' name='txt_nett[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>";
 	                    tambah +=   "<td><input type='text' id='txt_subtotal_"+last_row+"' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>";
 	                    tambah += "</tr>";
 	                    
 	                //$("#add_row").append(tambah);
-	                $('#add_rec_table tr:last').after(tambah);
+	                $('#add_sales_table tr:last').after(tambah);
 
 	                set_calculate(last_row);
 					search_item(last_row);
-
-	               /* hitung();
-
-	                $('.numeric').on('blur change keyup', function() {
-	                    hitung();
-	                });*/
+					get_buy_price(last_row);
+					get_satuan_price(last_row);
 
 	            
 	            });
@@ -130,14 +136,12 @@
 				var count_row = elements.length -1;
 				var i = 0; var tmp = 0;
 				
-				
-
 
 				while(i<=count_row){
 					set_calculate(i);
 					search_item(i);
-					
-					get_tipe_karton(i);
+					get_buy_price(i);
+					get_satuan_price(i);
 					i++;
 				}
 				
@@ -148,45 +152,47 @@
 			})
 
 			function get_buy_price(i){
-				$("#txt_price_"+i).on('change', function(){	
-		    		var id = $("#txt_item_id_"+i).val();
-		    		var jenis = $("#txt_price_"+i).val();
-					
-					 // alert(id);
-						$.ajax({
-							type 	: "POST",
-							url 	: base_url+"sales/get_combo_price/",
-							data 	: "id="+id+"&row="+i+"&jenis="+jenis,
-							cache	: false,
-							success	: function(msg){
-								data = msg;
-								//$("#txt_sell_price_"+i).val(data);
-								$("#txt_sell_price_"+i).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
-								$("#txt_sell_price_"+i).autoNumeric('set', data);
-							}
-						});
+				$("#cb_price_"+i).on('change', function(){	
+		    		var item_id = $("#txt_item_id_"+i).val();
+		    		var jenis = $("#cb_price_"+i).val();
+		    		var satuan = $("#cb_satuan_"+i).val();
+
+					$("#txt_sell_price_"+i).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+
+					$.ajax({
+						type 	: "POST",
+						url 	: base_url+"sales/get_price_by_jenis_satuan/",
+						data 	: "item_id="+item_id+"&row="+i+"&jenis="+jenis+"&satuan="+satuan,
+						cache	: false,
+						success	: function(msg){
+							data = msg;
+							$("#txt_sell_price_"+i).autoNumeric('set', data);
+						}
+					});
 					
 				});
 			}
 
-			function get_tipe_karton(i){
-				$("#txt_satuan_"+i).on('change', function(){	
-		    		var id = $("#txt_item_id_"+i).val();
-		    		var satuan = $("#txt_satuan_"+i).val();
+			function get_satuan_price(i){
+				$("#cb_satuan_"+i).on('change', function(){	
+		    		var item_id = $("#txt_item_id_"+i).val();
+		    		var satuan = $("#cb_satuan_"+i).val();
+		    		var jenis = $("#cb_price_"+i).val();
 					
-					 // alert(id);
-						$.ajax({
-							type 	: "POST",
-							url 	: base_url+"sales/get_satuan_price/",
-							data 	: "id="+id+"&row="+i+"&satuan="+satuan,
-							cache	: false,
-							success	: function(msg){
-								data = msg;
-								//$("#txt_sell_price_"+i).val(data);
-								$("#txt_sell_price_"+i).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
-								$("#txt_sell_price_"+i).autoNumeric('set', data);
-							}
-						});
+					$("#txt_sell_price_"+i).autoNumeric('init', {vMin: '0', vMax: '99999999999'});
+				
+					$.ajax({
+						type 	: "POST",
+						url 	: base_url+"sales/get_price_by_jenis_satuan/",
+						data 	: "item_id="+item_id+"&row="+i+"&satuan="+satuan+"&jenis="+jenis,
+						cache	: false,
+						success	: function(msg){
+							data = msg;
+							$("#txt_sell_price_"+i).autoNumeric('set', data);
+							$("#txt_qty_"+i).focus();
+
+						}
+					});
 					
 				});
 			}
@@ -233,7 +239,7 @@
 				$("#txt_crt_"+lastrow).val(crt);
 
 				$("#autocomplete_"+lastrow).hide();
-				$("#txt_qty_"+lastrow).focus();
+				$("#cb_price_"+lastrow).focus();
 				
 				calculate(lastrow);
 				return false;

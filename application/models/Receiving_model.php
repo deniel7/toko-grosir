@@ -251,7 +251,7 @@
 			$txt_item = $this->input->post('txt_item');
 			$txt_qty = $this->format_number($this->input->post('txt_qty'));
 			$txt_buy = $this->format_number($this->input->post('txt_buy'));
-
+			
 			$i = 0; 
 			while($i<count($txt_item_id)){
 				if (($txt_item[$i]=="") or empty($txt_item[$i]) or (str_replace(' ', '', $txt_item[$i])=="") ){
