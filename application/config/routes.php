@@ -126,6 +126,8 @@ $route['receiving/add/(:any)'] = 'Receiving_Controller/add/$1';
 $route['receiving/edit/(:any)/(:any)'] = 'Receiving_Controller/edit/$1/$2';
 $route['receiving/delete/(:any)'] = 'Receiving_Controller/delete/$1';
 $route['receiving/get_item/(:any)'] = 'Receiving_Controller/get_item/$1';
+$route['receiving/rec_no_check/(:any)'] = 'Receiving_Controller/rec_no_check/$1';
+$route['receiving/print_faktur/(:any)'] = 'Receiving_Controller/print_faktur/$1';
 
 $route['sales'] = 'Sales_Controller';
 $route['sales/(:any)'] = 'Sales_Controller/$1';
@@ -134,3 +136,20 @@ $route['sales/list/(:any)'] = 'Sales_Controller/get_list/$1';
 $route['sales/add/(:any)'] = 'Sales_Controller/add/$1';
 $route['sales/edit/(:any)/(:any)'] = 'Sales_Controller/edit/$1/$2';
 $route['sales/delete/(:any)'] = 'Sales_Controller/delete/$1';
+
+$route['utang'] = 'Utang_Controller';
+$route['utang/(:any)'] = 'Utang_Controller/$1';
+$route['utang/list'] = 'Utang_Controller/get_list';
+$route['utang/list/(:any)'] = 'Utang_Controller/get_list/$1';
+$route['utang/add/(:any)'] = 'Utang_Controller/add/$1';
+$route['utang/edit/(:any)/(:any)'] = 'Utang_Controller/edit/$1/$2';
+$route['utang/delete/(:any)'] = 'Utang_Controller/delete/$1';
+
+$route['piutang'] = 'Piutang_Controller';
+$route['piutang/(:any)'] = 'Piutang_Controller/$1';
+$route['piutang/list'] = 'Piutang_Controller/get_list';
+$route['piutang/list/(:any)'] = 'Piutang_Controller/get_list/$1';
+$route['piutang/add/(:any)'] = 'Piutang_Controller/add/$1';
+$route['piutang/edit/(:any)/(:any)'] = 'Piutang_Controller/edit/$1/$2';
+$route['piutang/delete/(:any)'] = 'Piutang_Controller/delete/$1';
+

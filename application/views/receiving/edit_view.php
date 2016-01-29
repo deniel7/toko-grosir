@@ -10,53 +10,99 @@
 						<ul class="breadcrumb">
 							<li>
 								<i class="ace-icon fa fa-pencil-square-o pencil-square-o-icon"></i>
-								Master
+								Transaction
 							</li>
-							<li><a href="<?php echo base_url();?>customer/list/0" >Customer</a></li>
+							<li><a href="<?php echo base_url();?>receiving/list/0" >Receiving</a></li>
 							<li class="active">Edit</li>
 						</ul >
 					</div>
 		
 					<div class="page-content">
 						<div class="row">
-							<div class="col-xs-12">
-							<?php echo $msg; ?>
-							<br>
+							<div class="col-xs-12 " ><?php echo $msg; ?></div>
+							
+							<div class="col-xs-12 form_apps" >
 								<div class="row">
 									<div class="col-xs-12">
-										<form action="<?php echo base_url(); ?>customer/edit_exe" method="post" name="frm_edit_cust" id="frm_edit_cust" class="form-horizontal" role="form">
+										<form action="<?php echo base_url(); ?>receiving/edit_exe" method="post" name="frm_edit_rec" id="frm_edit_rec" class="form-horizontal" role="form" autocomplete="off">
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Name</label>
-												<div class="col-sm-7">
-													<input type="text" id="txt_name" name="txt_name" class="col-xs-12" required value="<?php echo $name; ?>" />
-													<input type="hidden" id="txt_id" name="txt_id" value="<?php echo $id; ?>" />
-												</div>
-												<label class="col-sm-1 control-label no-padding-left" >Phone</label>
+												<label class="col-sm-1 control-label no-padding-left" >Rec.No</label>
 												<div class="col-sm-3">
-													<input type="text" id="txt_phone" name="txt_phone" class="col-xs-12" value="<?php echo $phone; ?>" />
+													<input type="text" id="txt_recno" name="txt_recno" class="col-xs-12" readonly maxlength="14" value="<?php echo $rec_no; ?>" />
+													<input type="hidden" id="txt_id" name="txt_id" class="col-xs-12" value="<?php echo $id; ?>" />
+												</div>
+												<div class="col-sm-8">
+													<select name='cb_supplier' id='cb_supplier' class="col-xs-12">
+														<?php echo $list_supplier; ?>
+													</select>
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-1 control-label no-padding-left" >Address</label>
+												<label class="col-sm-1 control-label no-padding-left" >Date</label>
 												<div class="col-sm-11">
-													<input type="text" id="txt_address" name="txt_address" class="col-xs-12" value="<?php echo $address; ?>" />
+													<input type="text" id="txt_date" name="txt_date" class="col-xs-12 date-picker" value="<?php echo $date; ?>" data-date-format='dd-mm-yyyy' required />
+												</div>
+											</div>
+
+											
+
+											<div class="form-group">
+												<label class="col-sm-1 control-label no-padding-left" >Payment</label>
+												<div class="col-sm-3">
+													<?php echo $list_payment; ?>
+												</div>
+												
+												<div class="col-sm-8">
+													<input type="text" id="txt_due" name="txt_due" class="col-xs-12 date-picker" value="<?php echo $due_date; ?>" placeholder="due date" data-date-format='dd-mm-yyyy' />
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<table id="add_rec_table" class="table" style="width:99%;margin-bottom:0px">
+													<thead>
+														<tr>
+															<th style='width:34%'>Item</th>
+															<th  style='width:8%'>QTY</th>
+															<th>Buy Price</th>
+												<!--		<th>Store Price</th>
+															<th>TO Price</th>
+															<th>Motoris Price</th>
+													-->		
+															<th>Subtotal</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														
+														<?php echo $list_detail; ?>
+														<div id='add_row' class="form-group"></div>
+														
+													</tbody>
+												</table>
+											</div>
+
+											<div class="form-group" style="padding-right:6px;">
+												<label class="col-sm-10 control-label no-padding-left" style="text-align:right;"><b>Total</b></label>
+												<div class="col-sm-2" style="">
+													<input type='text' id='txt_total' name='txt_total' class='col-xs-12 txt_numeric' value="<?php echo $total; ?>" readonly />
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-1 control-label" >
+												<div class="col-sm-12">
+													<button type="button" class="btn btn-success btn-sm" id="btn_add_row">
+														<i class="ace-icon fa fa-arrow-down icon-on-down"></i>Add Row
+													</button>
+												
 													<button type="submit" class="btn btn-primary btn-sm">
-														<i class="ace-icon fa fa-floppy-o"></i>
-															Save
+														<i class="ace-icon fa fa-floppy-o"></i>Save
 													</button>
-												</label>
-												<label class="col-sm-1 control-label" >
+												
 													<button type="reset" class="btn btn-default btn-sm">
-														<i class="ace-icon fa fa-undo"></i>
-															Reset
+														<i class="ace-icon fa fa-undo"></i>Reset
 													</button>
-												</label>
+												</div>
 											</div>
 
 										</form>	

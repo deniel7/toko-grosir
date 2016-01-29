@@ -99,15 +99,15 @@
 	                
 	                var tambah  = "<tr>";
 	                    tambah +=   "<td>";
-	                    tambah +=       "<input type='hidden' id='txt_item_id_'"+last_row+" name='txt_item_id[]' class='col-xs-12' />";
+	                    tambah +=       "<input type='hidden' id='txt_item_id_"+last_row+"' name='txt_item_id[]' class='col-xs-12' />";
 	                    tambah +=       "<input type='text' id='txt_item_"+last_row+"' name='txt_item[]' class='col-xs-12' onclick='this.setSelectionRange(0, this.value.length)' />";
 	                    tambah +=   	"<ul id='autocomplete_"+last_row+"' class='dropdown-menu' style='position:relative;width:100%'> </ul>";
 	                    tambah +=   "</td>";
 	                    tambah +=   "<td><input type='text' id='txt_qty_"+last_row+"' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>";
 	                    tambah +=   "<td><input type='text' id='txt_buy_"+last_row+"' name='txt_buy[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_store_"+last_row+"' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_to_"+last_row+"' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>";
-	                    tambah +=   "<td><input type='text' id='txt_motoris_"+last_row+"' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>";
+	                    //tambah +=   "<td><input type='text' id='txt_store_"+last_row+"' name='txt_store[]' class='col-xs-12 txt_numeric' /></td>";
+	                    //tambah +=   "<td><input type='text' id='txt_to_"+last_row+"' name='txt_to[]' class='col-xs-12 txt_numeric' /></td>";
+	                    //tambah +=   "<td><input type='text' id='txt_motoris_"+last_row+"' name='txt_motoris[]' class='col-xs-12 txt_numeric' /></td>";
 	                    tambah +=   "<td><input type='text' id='txt_subtotal_"+last_row+"' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>";
 	                    tambah += "</tr>";
 	                    
@@ -139,7 +139,50 @@
 					i++;
 				}
 				
+				$("#txt_recno").on('blur', function(event){   
+	                event.preventDefault();
 
+	                txt_recno = $("#txt_recno").val();
+
+	                $.ajax({
+	                    type    : "POST",
+	                    url     : base_url+"receiving/rec_no_check/",
+	                    data    : "txt_recno="+txt_recno,
+	                    cache   : false,
+	                    success : function(msg){
+	                        data = msg;
+	                        if (data=='1'){
+	                            alert('Rec.No is Exists');
+	                            $("#txt_recno").focus();
+	                        }
+	                                              
+	                    }
+	                });
+	            });
+
+				$("#frm_add_rec").on('submit', function(event){
+	                event.preventDefault();
+	                txt_recno = $("#txt_recno").val();
+
+	                $.ajax({
+	                    type    : "POST",
+	                    url     : base_url+"receiving/rec_no_check/",
+	                    data    : "txt_recno="+txt_recno,
+	                    cache   : false,
+	                    success : function(msg){
+	                        data = msg;
+	                        if (data=='1'){
+	                            alert('Rec.No is Exists');
+	                            $("#txt_recno").focus();
+	                        }
+	                        else {
+	                            document.frm_add_rec.submit(); 
+	                        }
+	                    }
+	                });
+	                
+	               
+	            });
 
 			})
 

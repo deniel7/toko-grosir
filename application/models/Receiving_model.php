@@ -52,9 +52,20 @@
 		}
 
 		public function get_list(){
-			$sql = "SELECT * 
+			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date, a.due_date, a.payment_id, a.total, a.status, a.active,
+					b.name
 					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
 					 ";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}
+
+		public function get_print_data($id){
+			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date, a.due_date, a.payment_id, a.total, a.status, a.active,
+					b.name
+					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
+					WHERE a.id='$id' ";
 
 			$query = $this->db->query($sql);
 			return $query->result();
@@ -68,20 +79,6 @@
 			return $query->result();
 		}
 
-		public function is_exist($id){
-			$sql = "SELECT * 
-					FROM mst_item 
-					WHERE LOWER(code)='".strtolower($id)."'  ";
-
-			$query = $this->db->query($sql);
-			
-			if ($query->num_rows() >= 1){
-				$exist = 1;
-			}else $exist = 0;
-
-			return $exist;
-		}
-
 		public function format_number($str){
 			$ret = str_replace(',', '', $str);
 			return $ret;
@@ -93,100 +90,171 @@
 			return $ret;
 		}
 
+		function rec_no_check($kode){
+			$q = $this->db->query("select rec_no from trn_receiving where LOWER(rec_no)='".strtolower($kode)."' ");
+			
+			if ($q->num_rows() >= 1){
+				$ada = 1;
+			}else $ada = 0;
+
+			return $ada;
+		}
 
 		public function insert_rec(){
-			$txt_code = $this->format_string($this->input->post('txt_code'));
-			$rb_type = $this->input->post('rb_type');
-			$txt_name = $this->format_string($this->input->post('txt_name'));
-            $txt_capacity = $this->format_number($this->input->post('txt_capacity'));
-            $txt_buy = $this->format_number($this->input->post('txt_buy'));
-            $txt_store = $this->format_number($this->input->post('txt_store'));
-            $txt_to = $this->format_number($this->input->post('txt_to'));
-            $txt_motoris = $this->format_number($this->input->post('txt_motoris'));
+			$txt_recno = $this->format_string($this->input->post('txt_recno'));
+			$cb_supplier = $this->input->post('cb_supplier');
+			$txt_date = $this->to_Ymd($this->input->post('txt_date'));
+			$txt_due = $this->to_Ymd($this->input->post('txt_due'));
+
+            $rb_payment = $this->format_number($this->input->post('rb_payment'));
+            $txt_total = $this->format_number($this->input->post('txt_total'));
 
             $create_by = $this->session->userdata['logged_in']['username'];
             $date = date('Y-m-d');
             $active = 1;
 
 			$data = array(
-					   'code' => $txt_code,
-					   'name' => $txt_name,
-					   'item_type_id' => $rb_type,
-					   'crt_capacity' => $txt_capacity,
-					   'stock' => '0',
-					   'buy_price' => '0',
-					   'store_price' => $txt_store,
-					   'to_price' => $txt_to,
-					   'motoris_price' => $txt_motoris,
-					   'active' => $active,
+					   'rec_no' => $txt_recno,
+					   'supplier_id' => $cb_supplier,
+					   'date' => $txt_date,
+					   'due_date' => $txt_due,
+					   'payment_id' => $rb_payment,
+					   'total' => $txt_total,
 					   'create_by' => $create_by,
 					   'create_at' => $date,
 					   'update_by' => null,
-					   'update_at' => null
+					   'update_at' => null,
+					   'status' => $rb_payment,
+					   'active' => $active
 					);
-			if ($this->is_exist($txt_code)=='1'){
-				return false;
-			}
-			else {
-				$this->db->insert('mst_item', $data);
-				return true;	
-			}
 			
-		}
-
-		public function add_exe(){
-			if ($this->insert_item())
-				return '1';
-			else 
-				return '0';
-		}
-
-		function edit($id){
-			$sql = "SELECT * FROM mst_item WHERE code='$id' ";
+			$this->db->insert('trn_receiving', $data);
+			$id =  $this->db->insert_id();
 			
-			$exe = $this->db->query($sql);
-			$ret = $exe->row();
-			$arr = array(
-							$ret->code, $ret->name, $ret->item_type_id, $ret->crt_capacity,
-							$ret->stock, $ret->buy_price, $ret->store_price, $ret->to_price,
-							$ret->motoris_price, $ret->active, $ret->create_by, $ret->create_at,
-							$ret->update_by, $ret->update_at
-						);
-			return $arr;
-		}	
-
-		public function edit_item(){
-			$txt_code = $this->format_string($this->input->post('txt_code'));
-			$rb_type = $this->input->post('rb_type');
-			$txt_name = $this->format_string($this->input->post('txt_name'));
-            $txt_capacity = $this->format_number($this->input->post('txt_capacity'));
-            $txt_buy = $this->format_number($this->input->post('txt_buy'));
-            $txt_store = $this->format_number($this->input->post('txt_store'));
-            $txt_to = $this->format_number($this->input->post('txt_to'));
-            $txt_motoris = $this->format_number($this->input->post('txt_motoris'));
-
-            $update_by = $this->session->userdata['logged_in']['username'];
-            $date = date('Y-m-d');
-            $active = 1;
-
-			$sql = "UPDATE mst_item 
-					SET name='$txt_name', item_type_id='$rb_type', crt_capacity='$txt_capacity',
-						store_price='$txt_store', to_price='$txt_to', motoris_price='$txt_motoris', 
-						update_by='$update_by', update_at='$date'
-					WHERE code='$txt_code'
-					";
-			
-			$this->db->query($sql);
+			$this->insert_rec_detail($id);
 
 			return true;
 			
 		}
 
-		public function edit_exe(){
-			if ($this->edit_item())
+		public function insert_rec_detail($head_id){
+			$txt_item_id = $this->input->post('txt_item_id');
+			$txt_item = $this->input->post('txt_item');
+			$txt_qty = $this->format_number($this->input->post('txt_qty'));
+			$txt_buy = $this->format_number($this->input->post('txt_buy'));
+			$txt_store = $this->format_number($this->input->post('txt_store'));
+			$txt_to = $this->format_number($this->input->post('txt_to'));
+			$txt_motoris = $this->format_number($this->input->post('txt_motoris'));
+			$txt_subtotal = $this->format_number($this->input->post('txt_subtotal'));
+
+			$i = 0; 
+			while($i<count($txt_item_id)){
+				if (($txt_item[$i]=="") or empty($txt_item[$i]) or (str_replace(' ', '', $txt_item[$i])=="") ){
+					$i++;
+					continue;
+				}
+				else {
+					$this->update_item_data($txt_item_id[$i], $txt_buy[$i], $txt_qty[$i]);
+					$data = array(
+							   'head_id' => $head_id,
+							   'item_id' => $txt_item_id[$i],
+							   'price' => $txt_buy[$i],
+							   'qty' => $txt_qty[$i],
+							   'subtotal' => $txt_subtotal[$i]
+							);
+					
+					$this->db->insert('trn_receiving_detail', $data);		
+					$i++;
+				}
+			}
+
+		}
+
+		public function update_item_data($item_code, $new_buy_price, $qty){
+			$sql = "UPDATE mst_item 
+					SET buy_price='$new_buy_price', stock = stock + '$qty'
+					WHERE code='$item_code'
+					";
+			
+			$this->db->query($sql);
+		}
+
+		public function update_item_data_edit($item_code, $new_buy_price, $qty){
+			$sql = "UPDATE mst_item 
+					SET buy_price='$new_buy_price', stock = stock + '$qty'
+					WHERE code='$item_code'
+					";
+			
+			$this->db->query($sql);
+		}
+
+		public function add_exe(){
+			if ($this->insert_rec())
 				return '1';
 			else 
 				return '0';
+		}
+
+		public function get_receiving_head($id){
+			$sql = "SELECT * FROM trn_receiving WHERE id='$id' ";
+			$exe = $this->db->query($sql);
+			$ret = $exe->row();
+			
+			$arr = array(
+							$ret->id, $ret->rec_no, $ret->supplier_id, $ret->date, $ret->due_date,
+							$ret->payment_id, $ret->total, $ret->status, $ret->active
+						);
+			return $arr;
+		}	
+
+		public function get_receiving_detail($id){
+			$sql = "SELECT * 
+					FROM trn_receiving_detail a JOIN mst_item b ON(a.item_id=b.code) 
+					WHERE a.head_id='$id' ";
+
+			$query = $this->db->query($sql);
+			return $query->result();
+		}	
+
+		public function edit_rec_head(){
+			$txt_id = $this->format_string($this->input->post('txt_id'));
+			$cb_supplier = $this->input->post('cb_supplier');
+			$txt_date = $this->to_Ymd($this->input->post('txt_date'));
+			$txt_due = $this->to_Ymd($this->input->post('txt_due'));
+            $rb_payment = $this->format_number($this->input->post('rb_payment'));
+            $txt_total = $this->format_number($this->input->post('txt_total'));
+
+            $update_by = $this->session->userdata['logged_in']['username'];
+            $date = date('Y-m-d');
+
+			$sql = "UPDATE trn_receiving 
+					SET supplier_id='$cb_supplier', date='$txt_date', due_date='$txt_due',
+						payment_id='$rb_payment', total='$txt_total', 
+						update_by='$update_by', update_at='$date'
+					WHERE id='$txt_id'
+					";
+
+			$this->db->query($sql);
+			return true;
+			
+		}
+
+		public function delete_rec_detail(){
+			$txt_id = $this->format_string($this->input->post('txt_id'));
+			$sql = "DELETE FROM trn_receiving_detail WHERE head_id='$txt_id'
+					";
+			
+			$this->db->query($sql);
+		}
+
+		public function edit_exe($id){
+			$this->edit_rec_head();
+			$this->delete_rec_detail();
+			//$this->update_item_data();
+			$this->insert_rec_detail($id);
+
+			return '1';
+			
 		}
 
 		public function delete($id){
