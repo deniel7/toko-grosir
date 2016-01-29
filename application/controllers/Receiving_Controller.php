@@ -274,13 +274,12 @@
 			$id = $this->input->post('txt_id');
 			$r = $this->Receiving_model->edit_exe($id);
 			
-
 			if ($r=='1')
 				$page = base_url() . 'receiving/edit/'.$id.'/1';
 			else 
 				$page = base_url() . 'receiving/edit/'.$id.'/4';
 
-			redirect($page);
+			//redirect($page);
 		}
 
 		public function delete($id){

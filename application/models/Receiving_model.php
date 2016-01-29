@@ -181,7 +181,7 @@
 
 		public function update_item_data_edit($item_code, $new_buy_price, $qty){
 			$sql = "UPDATE mst_item 
-					SET buy_price='$new_buy_price', stock = stock + '$qty'
+					SET buy_price = '$new_buy_price' - ('$new_buy_price' - buy_price), stock = stock - '$qty'
 					WHERE code='$item_code'
 					";
 			
@@ -239,18 +239,35 @@
 			
 		}
 
-		public function delete_rec_detail(){
-			$txt_id = $this->format_string($this->input->post('txt_id'));
-			$sql = "DELETE FROM trn_receiving_detail WHERE head_id='$txt_id'
+		public function delete_rec_detail($head_id){
+			$sql = "DELETE FROM trn_receiving_detail WHERE head_id='$head_id'
 					";
 			
 			$this->db->query($sql);
 		}
 
 		public function edit_exe($id){
-			$this->edit_rec_head();
-			$this->delete_rec_detail();
-			//$this->update_item_data();
+			$txt_item_id = $this->input->post('txt_item_id');
+			$txt_item = $this->input->post('txt_item');
+			$txt_qty = $this->format_number($this->input->post('txt_qty'));
+			$txt_buy = $this->format_number($this->input->post('txt_buy'));
+
+			$i = 0; 
+			while($i<count($txt_item_id)){
+				if (($txt_item[$i]=="") or empty($txt_item[$i]) or (str_replace(' ', '', $txt_item[$i])=="") ){
+					$i++;
+					continue;
+				}
+				else {
+					$this->update_item_data_edit($txt_item_id[$i], $txt_buy[$i], $txt_qty[$i]);// new-(new-old)	
+					$i++;
+				}
+			}
+
+			//$this->edit_rec_head();
+
+			//$this->delete_rec_detail($id);
+			//
 			$this->insert_rec_detail($id);
 
 			return '1';

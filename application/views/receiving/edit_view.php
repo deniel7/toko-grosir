@@ -28,7 +28,7 @@
 											<div class="form-group">
 												<label class="col-sm-1 control-label no-padding-left" >Rec.No</label>
 												<div class="col-sm-3">
-													<input type="text" id="txt_recno" name="txt_recno" class="col-xs-12" readonly maxlength="14" value="<?php echo $rec_no; ?>" />
+													<input type="text" id="txt_recno_edit" name="txt_recno_edit" class="col-xs-12" readonly maxlength="14" value="<?php echo $rec_no; ?>" />
 													<input type="hidden" id="txt_id" name="txt_id" class="col-xs-12" value="<?php echo $id; ?>" />
 												</div>
 												<div class="col-sm-8">
