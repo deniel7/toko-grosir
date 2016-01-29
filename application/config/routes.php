@@ -153,3 +153,5 @@ $route['piutang/add/(:any)'] = 'Piutang_Controller/add/$1';
 $route['piutang/edit/(:any)/(:any)'] = 'Piutang_Controller/edit/$1/$2';
 $route['piutang/delete/(:any)'] = 'Piutang_Controller/delete/$1';
 
+
+$route['sales/get_satuan_price/(:any)'] = 'Sales_Controller/get_satuan_price/$1';
