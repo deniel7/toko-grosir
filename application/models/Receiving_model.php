@@ -52,8 +52,8 @@
 		}
 
 		public function get_list(){
-			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date, a.due_date, a.payment_id, a.total, a.status, a.active,
-					b.name
+			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date,
+					a.due_date, a.payment_id, a.total, a.status, a.active, a.create_by, b.name
 					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
 					 ";
 
@@ -61,11 +61,26 @@
 			return $query->result();
 		}
 
-		public function get_print_data($id){
-			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date, a.due_date, a.payment_id, a.total, a.status, a.active,
-					b.name
+		public function get_print_head($id){
+			$sql = "SELECT a.id AS rec_id, a.rec_no, a.supplier_id, a.date, 
+					a.due_date, a.payment_id, a.total, a.status, a.active, b.name
 					FROM trn_receiving a JOIN mst_supplier b ON(a.supplier_id=b.id) 
 					WHERE a.id='$id' ";
+
+			$exe = $this->db->query($sql);
+			$ret = $exe->row();
+			
+			$arr = array(
+							$ret->rec_id, $ret->rec_no, $ret->supplier_id, $ret->date, $ret->due_date,
+							$ret->payment_id, $ret->total, $ret->status, $ret->active, $ret->name
+						);
+			return $arr;
+		}
+
+		public function get_print_detail($id){
+			$sql = "SELECT * 
+					FROM trn_receiving_detail a JOIN mst_item b ON(a.item_id=b.code) 
+					WHERE a.head_id='$id' ";
 
 			$query = $this->db->query($sql);
 			return $query->result();

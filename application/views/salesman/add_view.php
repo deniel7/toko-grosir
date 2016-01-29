@@ -9,7 +9,7 @@
 
 						<ul class="breadcrumb">
 							<li>
-								<i class="ace-icon fa fa-pencil-square-o pencil-square-o-icon"></i>
+								<i class="ace-icon fa fa-archive archive-icon"></i>
 								Master
 							</li>
 							<li><a href="<?php echo base_url();?>salesman/list/0" >Salesman</a></li>

@@ -42,9 +42,6 @@
 														<th>Payment</th>
 														<th>Total</th>
 														<th>Create by</th>
-														<th>Create at</th>
-														<th>Update by</th>
-														<th>Update at</th>
 														<th>Status</th>
 
 														<th></th>

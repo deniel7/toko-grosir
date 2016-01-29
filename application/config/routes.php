@@ -136,6 +136,7 @@ $route['sales/list/(:any)'] = 'Sales_Controller/get_list/$1';
 $route['sales/add/(:any)'] = 'Sales_Controller/add/$1';
 $route['sales/edit/(:any)/(:any)'] = 'Sales_Controller/edit/$1/$2';
 $route['sales/delete/(:any)'] = 'Sales_Controller/delete/$1';
+$route['sales/get_satuan_price/(:any)'] = 'Sales_Controller/get_satuan_price/$1';
 
 $route['utang'] = 'Utang_Controller';
 $route['utang/(:any)'] = 'Utang_Controller/$1';
@@ -153,5 +154,11 @@ $route['piutang/add/(:any)'] = 'Piutang_Controller/add/$1';
 $route['piutang/edit/(:any)/(:any)'] = 'Piutang_Controller/edit/$1/$2';
 $route['piutang/delete/(:any)'] = 'Piutang_Controller/delete/$1';
 
+$route['report'] = 'Report_Controller';
+$route['report/(:any)'] = 'Report_Controller/$1';
+$route['report/transaction'] = 'Report_Controller/select_transaction_report';
+$route['report/transaction/(:any)'] = 'Report_Controller/select_transaction_report/$1';
+$route['report/stock/(:any)'] = 'Report_Controller/stock_report/$1';
 
-$route['sales/get_satuan_price/(:any)'] = 'Sales_Controller/get_satuan_price/$1';
+
+

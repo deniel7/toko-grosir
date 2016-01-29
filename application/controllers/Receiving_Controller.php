@@ -35,6 +35,7 @@
 									<td>".$r->due_date."</td>
 									<td style='text-align:right;'>".$this->my_to_currency($r->total)."</td>
 									<td>".$status."</td>
+									<td>".$r->create_by."</td>
 									<td>
 										<div class='hidden-sm hidden-xs action-buttons'>
 											<a class='green' href='".base_url()."receiving/edit/".$r->rec_id."/0'>
@@ -59,47 +60,109 @@
 			$this->load->view('receiving/index', $data);
 		}
 		
-		public function get_print_data($id){
-			$res = $this->Receiving_model->get_print_data($id);
+		public function create_faktur_head($table_width, $title){
+			$ret = "<table align='center' style='width:$table_width'>
+						<tr  class='trheader'>
+							<th>
+								<div style='display:inline-block;'>
+									
+								</div>		
+								<div style='display:inline-block;vertical-align: top;'>
+									JAYA MAKMUR<br>
+								</div>
+							</th>	
+						</tr>
+						
+						<tr class='isidata'>
+							<td class='caption' colspan='8' align='center'>$title <br><br></td>
+						</tr>
+						";
+			return $ret;
+		}
 
-			$i = 0;
+		public function get_print_data($id, $table_width, $title){
+			$head = $this->Receiving_model->get_print_head($id);
+			$id = $head[0];
+			$rec_no = $head[1];
+			$supplier_id = $head[2];
+			$date = $this->myto_dmY($head[3]);
+			$due_date = ($head[4]==null?null:$this->myto_dmY($head[4]));
+			$payment_id = $head[5];
+			$total = $head[6];
+			$status = $head[7];
+			$active = $head[8];
+			$name = $head[9];
+
 			$ret = "";
-			$ret .= "<table>
-						<tr>
-							<td>No</td>
+			$ret .= $this->create_faktur_head($table_width, $title);
+			$ret .= 	"<tr class='isidata'>
 							<td>Rec.No</td>
+							<td>$rec_no</td>
+							<td colspan='4'>&nbsp;</td>
 							<td>Supplier</td>
+							<td>$name</td>
+						</tr>
+						<tr class='isidata'>
 							<td>Date</td>
+							<td>$date</td>
+							<td colspan='4'>&nbsp;</td>
 							<td>Due Date</td>
-							<td>Total</td>
-							<td>Status</td>
-						</tr>";
+							<td>$due_date</td>
+						</tr>
+						";
 
-			foreach ($res as $r) {
+			$detail = $this->Receiving_model->get_print_detail($id);
+						
+			$ret .= "	<tr class='isidata'><td colspan='8'>&nbsp;</td></tr>
+						<tr class='isidata'>
+							<td colspan='8' align='center'>
+								<table width='100%' class='table_detail'>
+									<tr>
+										<td width='2%'>No.</td>
+										<td width='5%'>Item ID</td>
+										<td width='10%'>Item Name</td>
+										<td width='8%'>Price</td>
+										<td width='5%'>Qty</td>
+										<td width='5%'>Subtotal</td>
+									</tr>";
+			$i = 0;						
+			foreach ($detail as $rdetail) {
 				$i++;
 				$ret .= "<tr>
 							<td>".$i.".</td>
-							<td>".$r->rec_no."</td>
-							<td>".$r->name."</td>
-							<td>".$r->date."</td>
-							<td>".$r->due_date."</td>
-							<td>".$r->total."</td>
-							<td>".$r->status."</td>
+							<td>".$rdetail->id."</td>
+							<td>".$rdetail->name."</td>
+							<td class='number'>".$this->my_to_currency($rdetail->price)."</td>
+							<td class='number'>".$this->my_to_currency($rdetail->qty)."</td>
+							<td class='number'>".$this->my_to_currency($rdetail->subtotal)."</td>
 						</tr>";
 				
 			}		
-			$ret .= "</table>";	
+			$ret .= 	"<tr>
+							<td class='number' colspan='5'>Total</td>
+							<td class='number'><b>".$this->my_to_currency($total)."</b></td>
+						</tr>
+					</table>";	
 
 			return $ret;
 		}
 
-		public function print_faktur($id){
+		public function print_faktur($id) {
+			$data['list'] = $this->get_print_data($id, '100%', 'RECEIVING INVOICE');
+
+			//config tables
+			$data['date'] = date("d-m-Y H:i");
+			
+			$this->load->view('receiving/faktur_view', $data);
+		}
+
+/*		public function print_faktur($id){
 			$html = $this->get_print_data($id);
 			$this->load->helper('mpdf_helper');
 			$filename = 'REC_' . $id;
 
 			pdf_create($html, $filename);
-		}
+		}*/
 		
 		public function rec_no_check(){
 			$txt_recno = $this->input->post('txt_recno');
