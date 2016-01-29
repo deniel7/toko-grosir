@@ -14,7 +14,7 @@
 		}
 
 		function autonum_rec() {	
-			$now = date("dmy");
+			$now = date("dmy"); 
 			$start = date("y-m-d 00:00:00");
 			$end = date("y-m-d 23:59:59");
 
