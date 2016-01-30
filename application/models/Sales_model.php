@@ -169,8 +169,8 @@
 					  
 					);
 			
-			$this->db->insert('trn_sales', $data);
-			$id =  $this->db->insert_id();
+			// $this->db->insert('trn_sales', $data);
+			// $id =  $this->db->insert_id();
 			
 			$this->insert_sales_detail($id);
 
@@ -188,6 +188,9 @@
 			$txt_to = $this->format_number($this->input->post('txt_to'));
 			$txt_motoris = $this->format_number($this->input->post('txt_motoris'));
 			$txt_subtotal = $this->format_number($this->input->post('txt_subtotal'));
+
+
+
 
 			$i = 0; 
 			while($i<count($txt_item_id)){

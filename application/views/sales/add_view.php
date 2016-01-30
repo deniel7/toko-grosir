@@ -98,8 +98,8 @@
 															<th style='width:8%'>CRT / Box</th>
 															<th>Sell Price</th>
 															<th>Qty</th>
-															<th>Disc</th>
-															<th>Nett</th>
+															<!-- <th>Disc</th>
+															<th>Nett</th> -->
 															<th>Subtotal</th>
 														</tr>
 													</thead>

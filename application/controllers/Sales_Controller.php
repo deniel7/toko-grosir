@@ -107,8 +107,7 @@
 
 							<td><input type='text' id='txt_sell_price_$i' name='txt_sell_price[]' class='col-xs-12 txt_numeric' /></td>
 							<td><input type='text' id='txt_qty_$i' name='txt_qty[]' class='col-xs-12 txt_numeric' /></td>
-							<td><input type='text' id='txt_disc_$i' name='txt_disc[]' class='col-xs-12 txt_numeric' readonly /></td>
-							<td><input type='text' id='txt_nett_$i' name='txt_nett[]' class='col-xs-12 txt_numeric' readonly /></td>
+							
 							<td><input type='text' id='txt_subtotal_$i' name='txt_subtotal[]' class='col-xs-12 txt_numeric' readonly value='0' /></td>
 							
 						</tr>";	
