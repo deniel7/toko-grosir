@@ -1,0 +1,4 @@
+disc pada tabel diskon hanya berlaku untuk :
+- total jumlah penjualan dalam satuan CARTON
+- hanya untuk jenis SNACK (ada pada tabel item)
+- hanya untuk TO_price
